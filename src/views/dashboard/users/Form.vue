@@ -80,10 +80,9 @@
                   :items="LKPCompany"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('users.companyName')"
                   outlined
-                  @input="getLKPBranchByCompany(data.companyId.id)"
+                  @input="getLKPBranchByCompany(data.companyId)"
                 />
               </v-col>
               <v-col
@@ -95,7 +94,6 @@
                   :items="LKPBranch"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('users.branchName')"
                   outlined
                 />
@@ -149,7 +147,7 @@
       right
       :timeout="timeout"
     >
-      {{ errorSnackbar }}
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -206,8 +204,8 @@
             username: this.data.username,
             userfullname: this.data.userfullname,
             arrRoleId: this.data.roleIds,
-            branchId: this.data.branchId.id,
-            companyId: this.data.companyId.id,
+            branchId: this.data.branchId,
+            companyId: this.data.companyId,
           })
         } else {
           this.newItem(
@@ -218,15 +216,15 @@
               userfullname: this.data.userfullname,
               password: this.data.password,
               arrRoleId: this.data.roleIds,
-              branchId: this.data.branchId.id,
-              companyId: this.data.companyId.id,
+              branchId: this.data.branchId,
+              companyId: this.data.companyId,
             },
           )
         }
       },
       async newItem (data) {
         const item = await AuthenticationService.addUserData(data)
-        console.log('new Item item', data)
+        console.log('new Item item', item)
         if (item.success === true) {
           this.successMessage = 'Successful'
           this.successSnackbar = true
@@ -234,7 +232,7 @@
             this.$router.push('/Users')
           }, 1500)
         } else {
-          this.errorMessage('something Error')
+          this.errorMessage = item.message
           this.errorSnackbar = true
         }
         this.disabled = false

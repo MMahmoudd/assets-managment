@@ -35,7 +35,6 @@
                   :items="LKPCategory"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('assetsType.chooseCategory')"
                   outlined
                 />
@@ -74,7 +73,7 @@
       center
       :timeout="timeout"
     >
-      {{ errorSnackbar }}
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -116,13 +115,13 @@
           this.updateContent({
             assetTypeId: this.data.assetTypeId,
             assetTypeDesc: this.data.assetTypeDesc,
-            assetCategoryId: this.data.assetCategoryId.id,
+            assetCategoryId: this.data.assetCategoryId,
           })
         } else {
           this.newItem(
             {
               assetTypeDesc: this.data.assetTypeDesc,
-              assetCategoryId: this.data.assetCategoryId.id,
+              assetCategoryId: this.data.assetCategoryId,
             },
           )
         }

@@ -59,11 +59,10 @@
                         :items="LKPCategory"
                         item-text="name"
                         item-value="id"
-                        return-object
                         :label="$t('assets.chooseCtegory')"
                         outlined
                         dense
-                        @input="getLKPType(data.assetCategoryId.id)"
+                        @input="getLKPType(data.assetCategoryId)"
                       />
                       <span v-if="!this.$route.params.id">
                         <div
@@ -100,11 +99,10 @@
                         :items="LKPType"
                         item-text="name"
                         item-value="id"
-                        return-object
                         :label="$t('assets.chooseType')"
                         outlined
                         dense
-                        @input="getLKPBrand(data.assetTypeId.id)"
+                        @input="getLKPBrand(data.assetTypeId)"
                       />
                       <span v-if="!this.$route.params.id">
                         <div
@@ -141,11 +139,10 @@
                         :items="LKPBrand"
                         item-text="name"
                         item-value="id"
-                        return-object
                         :label="$t('assets.chooseBrand')"
                         outlined
                         dense
-                        @input="getLKPModel(data.assetBrandId.id)"
+                        @input="getLKPModel(data.assetBrandId)"
                       />
                       <span v-if="!this.$route.params.id">
                         <div
@@ -182,7 +179,6 @@
                         :items="LKPModel"
                         item-text="name"
                         item-value="id"
-                        return-object
                         :label="$t('assets.chooseModel')"
                         outlined
                         dense
@@ -255,11 +251,10 @@
                         :items="LKPBrnch"
                         item-text="name"
                         item-value="id"
-                        return-object
                         :label="$t('assets.chooseBranch')"
                         outlined
                         dense
-                        @input="getLKPFloor(data.branchId.id)"
+                        @input="getLKPFloor(data.branchId)"
                       />
                     </v-col>
                     <v-col
@@ -271,11 +266,10 @@
                         :items="LKPFloor"
                         item-text="name"
                         item-value="id"
-                        return-object
                         :label="$t('assets.chooseFloor')"
                         outlined
                         dense
-                        @input="getLKPRoom(data.floorId.id)"
+                        @input="getLKPRoom(data.floorId)"
                       />
                     </v-col>
                     <v-col
@@ -287,7 +281,6 @@
                         :items="LKPRoom"
                         item-text="name"
                         item-value="id"
-                        return-object
                         :label="$t('assets.chooseRoom')"
                         outlined
                         dense
@@ -649,7 +642,7 @@
       right
       :timeout="timeout"
     >
-      {{ errorSnackbar }}
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -741,20 +734,21 @@
         this.addAssetCategory = false
       },
       closeAddType () {
+        console.log(this.data.assetCategoryId)
         if (this.data.assetCategoryId) {
-          this.getLKPType(this.data.assetCategoryId.id)
+          this.getLKPType(this.data.assetCategoryId)
         }
         this.addAssetType = false
       },
       closeAddBrand () {
         if (this.data.assetTypeId) {
-          this.getLKPBrand(this.data.assetTypeId.id)
+          this.getLKPBrand(this.data.assetTypeId)
         }
         this.addAssetBrand = false
       },
       closeAddModel () {
         if (this.data.assetBrandId) {
-          this.getLKPModel(this.data.assetBrandId.id)
+          this.getLKPModel(this.data.assetBrandId)
         }
         this.addAssetModel = false
       },
@@ -785,13 +779,13 @@
             {
               assetName: this.data.assetName,
               assetDescription: this.data.assetDescription,
-              assetCategoryId: this.data.assetCategoryId.id,
-              assetTypeId: this.data.assetTypeId.id,
-              assetBrandId: this.data.assetBrandId.id,
-              assetModelId: this.data.assetModelId.id,
-              branchId: this.data.branchId.id,
-              floorId: this.data.floorId.id,
-              roomId: this.data.roomId.id,
+              assetCategoryId: this.data.assetCategoryId,
+              assetTypeId: this.data.assetTypeId,
+              assetBrandId: this.data.assetBrandId,
+              assetModelId: this.data.assetModelId,
+              branchId: this.data.branchId,
+              floorId: this.data.floorId,
+              roomId: this.data.roomId,
               poid: this.data.poid,
               assetProductionDate: moment(this.data.assetProductionDate).format(),
               assetExpiryDate: moment(this.data.assetExpiryDate).format(),

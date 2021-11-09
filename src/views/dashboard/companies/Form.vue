@@ -47,7 +47,6 @@
                   :items="LKPGroup"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('companies.chooseGroup')"
                   outlined
                 />
@@ -86,7 +85,7 @@
       right
       :timeout="timeout"
     >
-      {{ errorSnackbar }}
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -129,7 +128,7 @@
         if (this.$route.params.id) {
           this.updateContent({
             companyId: this.data.companyId,
-            groupId: this.data.groupId.id,
+            groupId: this.data.groupId,
             companyLogo: this.data.companyLogo,
             companyNameArabic: this.data.companyNameArabic,
             companyNameEnglish: this.data.companyNameEnglish,
@@ -137,7 +136,7 @@
         } else {
           this.newItem(
             {
-              groupId: this.data.groupId.id,
+              groupId: this.data.groupId,
               companyLogo: this.data.companyLogo,
               companyNameArabic: this.data.companyNameArabic,
               companyNameEnglish: this.data.companyNameEnglish,
@@ -162,6 +161,7 @@
         this.loading = false
       },
       async updateContent (data) {
+        console.log(data)
         const item = await CompaniesService.updateAddCompany(data)
         console.log('update Content item', data)
         if (item.success === true) {

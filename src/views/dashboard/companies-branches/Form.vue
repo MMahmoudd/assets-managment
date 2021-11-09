@@ -47,7 +47,6 @@
                   :items="LKPArea"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('branches.areaName')"
                   outlined
                 />
@@ -86,7 +85,7 @@
       right
       :timeout="timeout"
     >
-      {{ errorSnackbar }}
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -130,14 +129,14 @@
             branchId: this.data.branchId,
             branchName: this.data.branchName,
             branchAddress: this.data.branchAddress,
-            areaId: this.data.areaId.id,
+            areaId: this.data.areaId,
           })
         } else {
           this.newItem(
             {
               branchName: this.data.branchName,
               branchAddress: this.data.branchAddress,
-              areaId: this.data.areaId.id,
+              areaId: this.data.areaId,
             },
           )
         }

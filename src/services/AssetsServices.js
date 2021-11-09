@@ -1,9 +1,8 @@
-// import axios from 'axios'
+/* eslint-disable no-useless-escape */
 import Service from './Service'
 import { API_URL } from '../config'
 
 const resource = `${API_URL}/Assets`
-// const token = localStorage.getItem('token')
 
 export default {
 
@@ -45,9 +44,9 @@ export default {
       return Service.post(`${resource}/Update`, data)
       .then((response) => {
           console.log(response)
-        // if (response.status === 200) {
-        //     return response.data
-        // }
+        if (response.status === 200) {
+            return response.data
+        }
     })
     },
     addAssets (data) {
@@ -91,5 +90,48 @@ export default {
               return response.data
           }
       })
+  },
+  GetAllAssetsForPrint (itemsPerPage, page, pageNumber, data) {
+    return Service.post(`${resource}/GetAssetsForPrint?page=${page}&limit=${itemsPerPage}`, data)
+      .then((response) => {
+          console.log(response)
+        if (response.status === 200) {
+            return response.data
+        }
+    })
+  },
+  printAssets (printerIPAddress, item) {
+    return Service.post(`https://${printerIPAddress}/pstprnt`,
+      `^XA
+      ^RS,,,3,N,,,2
+      ^RR3
+      ^XZ
+      ^XA
+      ^SZ2^JMA
+      ^MCY^PMN
+      ^PW490
+      ~JSN
+      ^JZY
+      ^LH0,0^LRN
+      ^XZ
+      ^XA
+      ^FO130,80
+      ^BY3^BCN,72,N,N^FD>;${item.assetSerialNumber}^FS
+      ^FT166,185
+      ^CI0
+      ^A0N,34,46^FD${item.assetSerialNumber}^FS
+      ^FT133,58
+      ^A0N,34,46^FD${item.assetDescription}^FS
+      ^RFW,H,1,2,1^FD1400^FS
+      ^RFW,H,2,3,1^FD${item.assetSerialNumber}^FS
+      ^PQ1,0,1,Y
+      ^XZ`,
+    )
+      .then((response) => {
+          console.log(response)
+        // if (response.status === 200) {
+        //     return response.data
+        // }
+    })
   },
 }

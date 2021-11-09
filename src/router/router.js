@@ -328,6 +328,14 @@ const router = new Router({
           meta: { role: 'Report.ExcuteProcedure' },
           beforeEnter: routerGuard,
         },
+        // Print Assets
+        {
+          name: 'Print Assets',
+          path: '/Print-Assets',
+          component: () => import('@/views/dashboard/print-assets/PrintAssets.vue'),
+          meta: { role: 'Asset.GetAssetsForPrint' },
+          beforeEnter: routerGuard,
+        },
         {
           path: '/notAuthorized',
           name: 'notAuthorized',

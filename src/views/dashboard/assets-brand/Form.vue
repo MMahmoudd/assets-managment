@@ -35,7 +35,6 @@
                   :items="LKPType"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('assetsBrand.chooseType')"
                   outlined
                 />
@@ -74,7 +73,7 @@
       center
       :timeout="timeout"
     >
-      {{ errorSnackbar }}
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -115,13 +114,13 @@
           this.updateContent({
             assetBrandId: this.data.assetBrandId,
             brandName: this.data.brandName,
-            assetTypeId: this.data.assetTypeId.id,
+            assetTypeId: this.data.assetTypeId,
           })
         } else {
           this.newItem(
             {
               brandName: this.data.brandName,
-              assetTypeId: this.data.assetTypeId.id,
+              assetTypeId: this.data.assetTypeId,
             },
           )
         }

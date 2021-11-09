@@ -44,7 +44,6 @@
                   :items="LKPBrnch"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('assets.currentBranch')"
                   outlined
                   dense
@@ -62,7 +61,6 @@
                   :items="LKPBrnch"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('assets.chooseNewBranch')"
                   outlined
                   dense
@@ -80,7 +78,6 @@
                   :items="LKPFloor"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('assets.currentFloor')"
                   outlined
                   dense
@@ -98,11 +95,10 @@
                   :items="LKPFloor"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('assets.chooseNewFloor')"
                   outlined
                   dense
-                  @input="getLKPRoom(data.newFloorId.id)"
+                  @input="getLKPRoom(data.newFloorId)"
                 />
               </v-col>
               <v-col
@@ -115,7 +111,6 @@
                   :items="LKPRoom"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('assets.chooseNewRoom')"
                   outlined
                   dense
@@ -212,22 +207,22 @@
         if (this.$route.name === 'Move Assets Branch') {
           this.updateBranch({
             assetId: this.data.assetId,
-            NewBranchId: this.data.NewBranchId.id,
+            NewBranchId: this.data.NewBranchId,
             description: this.data.description,
           })
         } else if (this.$route.name === 'Move Assets To Floor And Room') {
           if (this.data.newFloorId) {
             this.updateFloorRoom({
               assetId: this.data.assetId,
-              newFloorId: this.data.newFloorId.id,
-              newRoomId: this.data.newRoomId.id,
+              newFloorId: this.data.newFloorId,
+              newRoomId: this.data.newRoomId,
               transActionDesc: this.data.description,
             })
           } else {
             this.updateFloorRoom({
               assetId: this.data.assetId,
               newFloorId: this.data.floorId,
-              newRoomId: this.data.newRoomId.id,
+              newRoomId: this.data.newRoomId,
               transActionDesc: this.data.description,
             })
           }
@@ -255,7 +250,7 @@
           this.successMessage = 'Successful'
           this.successSnackbar = true
           setTimeout(() => {
-            // this.$router.push('/Move-Assets')
+            this.$router.push('/Move-Assets')
           }, 1500)
         } else {
           this.errorMessage = item.message

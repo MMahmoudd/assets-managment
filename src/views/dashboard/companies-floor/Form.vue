@@ -36,7 +36,6 @@
                   :items="LKPBrnch"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('floor.branchName')"
                   outlined
                 />
@@ -75,7 +74,7 @@
       right
       :timeout="timeout"
     >
-      {{ errorSnackbar }}
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -116,13 +115,13 @@
           this.updateContent({
             floorId: this.data.floorId,
             floorName: this.data.floorName,
-            branchId: this.data.branchId.id,
+            branchId: this.data.branchId,
           })
         } else {
           this.newItem(
             {
               floorName: this.data.floorName,
-              branchId: this.data.branchId.id,
+              branchId: this.data.branchId,
             },
           )
         }

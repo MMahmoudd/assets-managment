@@ -205,6 +205,41 @@
           />
         </v-list-item>
       </v-list-group>
+      <!-- Print Assets-->
+      <v-list-group
+        no-action
+        sub-group
+        color="#ff9800"
+        :expand="expand"
+      >
+        <template
+          v-slot:activator
+        >
+          <v-list-item-icon>
+            <v-icon>fa-print</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('sidbar.printAssets') }}</v-list-item-title>
+          </v-list-item-content>
+        </template>
+        <v-list-item
+          v-for="(item, i) in printAssets"
+          :key="i"
+          link
+        >
+          <base-item-group
+            v-if="item.children"
+            :key="`group-${i}`"
+            :item="item"
+          />
+          <base-item
+            v-else
+            :key="`item-${i}`"
+            :item="item"
+            color="#ff9800"
+          />
+        </v-list-item>
+      </v-list-group>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -234,21 +269,15 @@
           title: vm.$t('sidbar.statistics'),
           to: '/',
           role: true,
+          children: [{
+            icon: 'mdi-chart-bar',
+            title: vm.$t('sidbar.statistics'),
+            to: '/',
+            role: true,
+          }],
         },
       ],
       companies: [
-        {
-          title: vm.$t('sidbar.companies'),
-          icon: 'mdi-domain',
-          to: '/Companies',
-          role: ['Page.Company'],
-        },
-        {
-          title: vm.$t('sidbar.CompaniesBranches'),
-          icon: 'mdi-source-branch',
-          to: '/Companies-branches',
-          role: ['Page.CompanyBranch'],
-        },
         {
           title: vm.$t('sidbar.CompaniesGroup'),
           icon: 'fa-layer-group',
@@ -256,10 +285,22 @@
           role: ['Page.CompanyGroup'],
         },
         {
+          title: vm.$t('sidbar.companies'),
+          icon: 'mdi-domain',
+          to: '/Companies',
+          role: ['Page.Company'],
+        },
+        {
           title: vm.$t('sidbar.CompaniesArea'),
           icon: 'fa-location-arrow',
           to: '/Companies-area',
           role: ['Page.CompanyArea'],
+        },
+        {
+          title: vm.$t('sidbar.CompaniesBranches'),
+          icon: 'mdi-source-branch',
+          to: '/Companies-branches',
+          role: ['Page.CompanyBranch'],
         },
         {
           title: vm.$t('sidbar.CompaniesFloor'),
@@ -282,6 +323,12 @@
           role: ['Page.Asset'],
         },
         {
+          title: vm.$t('sidbar.assetsCategory'),
+          icon: 'fa-object-group',
+          to: '/Assets-category',
+          role: ['Page.AssetCategory'],
+        },
+        {
           title: vm.$t('sidbar.assetsType'),
           icon: 'fa-file-contract',
           to: '/Assets-type',
@@ -292,12 +339,6 @@
           icon: 'fa-copyright',
           to: '/Assets-brand',
           role: ['Page.AssetBrand'],
-        },
-        {
-          title: vm.$t('sidbar.assetsCategory'),
-          icon: 'fa-object-group',
-          to: '/Assets-category',
-          role: ['Page.AssetCategory'],
         },
         {
           title: vm.$t('sidbar.assetsModel'),
@@ -344,6 +385,14 @@
           icon: 'fa-paste',
           to: '/Reports',
           role: ['Report.GetProcedures' || 'Report.ExcuteProcedure'],
+        },
+      ],
+      printAssets: [
+        {
+          title: vm.$t('sidbar.printAssets'),
+          icon: 'fa-print',
+          to: '/Print-Assets',
+          role: ['Asset.GetAssetsForPrint'],
         },
       ],
     }),

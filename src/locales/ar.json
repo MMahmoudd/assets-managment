@@ -52,7 +52,8 @@
     "assetsStatus": "حالة الأصول",
     "moveAssets": "نقل الأصول",
     "pendingAssets": "الأصول المعلقة",
-    "reports": "التقارير"
+    "reports": "التقارير",
+    "printAssets": "طباعة الأصول"
   },
   "navbar": {
     "welcome": "أهلا بك",
@@ -77,7 +78,10 @@
     "addType": "اضافة نوع",
     "addBrand": "اضافة علامة تجارية",
     "addModel": "اضافة موديل",
-    "search": "بحث"
+    "search": "بحث",
+    "getAssets": "الحصول على الأصول",
+    "print": "طباعة",
+    "export": "تنزيل"
   },
   "statistics": {
     "assetsStatistics": "إحصائيات الأصول",
@@ -179,7 +183,9 @@
     "currentFloor": "الطابق الحالي",
     "chooseNewFloor": "اختر طابق جديد",
     "currentRoom": "الغرفة الحالية",
-    "chooseNewRoom": "اختر غرفة جديدة"
+    "chooseNewRoom": "اختر غرفة جديدة",
+    "filterAsset": "تصفية الأصول",
+    "printerIPAddress": "أدخل عنوان IP الخاص بالطابعة"
   },
   "assetsType": {
     "assetTypeDesc": "وصف نوع الاصل",

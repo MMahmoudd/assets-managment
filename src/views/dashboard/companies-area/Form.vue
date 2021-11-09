@@ -36,7 +36,6 @@
                   :items="LKPCompany"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('area.companyName')"
                   outlined
                 />
@@ -75,7 +74,7 @@
       right
       :timeout="timeout"
     >
-      {{ errorSnackbar }}
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -116,13 +115,13 @@
           this.updateContent({
             areaId: this.data.areaId,
             areaName: this.data.areaName,
-            companyId: this.data.companyId.id,
+            companyId: this.data.companyId,
           })
         } else {
           this.newItem(
             {
               areaName: this.data.areaName,
-              companyId: this.data.companyId.id,
+              companyId: this.data.companyId,
             },
           )
         }

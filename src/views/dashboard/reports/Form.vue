@@ -69,12 +69,22 @@
               </v-row>-->
               <v-btn
                 type="submit"
-                class="mx-auto my-auto d-flex"
+                class="mx-1 my-auto"
                 color="indigo"
                 :loading="loading"
                 :disabled="disabled"
               >
                 {{ $t('actions.viewReport') }}
+              </v-btn>
+              <v-btn
+                v-if="rows.length >= 1"
+                class="mx-1 my-auto"
+                color="indigo"
+                :loading="loading"
+                :disabled="disabled"
+                @click="exportExel()"
+              >
+                {{ $t('actions.export') }}
               </v-btn>
             </v-container>
           </v-form>
@@ -104,6 +114,7 @@
               <td
                 v-for="(item, x) in row"
                 :key="x"
+                class="text-center"
               >
                 {{ item }}
               </td>
@@ -132,7 +143,7 @@
       right
       :timeout="timeout"
     >
-      {{ errorSnackbar }}
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -164,6 +175,8 @@
         // statusId: 0,
         // userId: 0,
       },
+      bookType: 'xlsx',
+      autoWidth: true,
       header: [],
       rows: [],
       LKPBrnch: [],
@@ -185,6 +198,31 @@
       // this.getLKPFloor()
     },
     methods: {
+      exportExel () {
+        this.loading = true
+        import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = this.header
+        const list = this.rows
+        const data = this.formatJson(list)
+        excel.export_json_to_excel({
+          header: tHeader,
+          data,
+          filename: this.filename,
+          autoWidth: this.autoWidth,
+          bookType: this.bookType,
+        })
+        this.loading = false
+      })
+      },
+      formatJson (jsonData) {
+        return jsonData.map(v => {
+          if (v === 'timestamp') {
+            return v
+          } else {
+            return v
+          }
+        })
+      },
       async  submitForm () {
         this.loading = true
         this.disabled = true

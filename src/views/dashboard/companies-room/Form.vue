@@ -47,9 +47,9 @@
                   :items="LKPBrnch"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('room.branchName')"
                   outlined
+                  @input="getLKPFloor(data.branchId)"
                 />
               </v-col>
               <v-col
@@ -61,7 +61,6 @@
                   :items="LKPFloor"
                   item-text="name"
                   item-value="id"
-                  return-object
                   :label="$t('room.floorName')"
                   outlined
                 />
@@ -100,7 +99,7 @@
       right
       :timeout="timeout"
     >
-      {{ errorSnackbar }}
+      {{ errorMessage }}
     </v-snackbar>
   </v-container>
 </template>
@@ -136,7 +135,6 @@
         this.fetchOneItem(this.$route.params.id)
       }
       this.getLKPBrnch()
-      this.getLKPFloor()
     },
     methods: {
       async  submitForm () {
@@ -147,16 +145,16 @@
             roomId: this.data.roomId,
             roomNumber: this.data.roomNumber,
             roomName: this.data.roomName,
-            floorId: this.data.floorId.id,
-            branchId: this.data.branchId.id,
+            floorId: this.data.floorId,
+            branchId: this.data.branchId,
           })
         } else {
           this.newItem(
             {
               roomNumber: this.data.roomNumber,
               roomName: this.data.roomName,
-              floorId: this.data.floorId.id,
-              branchId: this.data.branchId.id,
+              floorId: this.data.floorId,
+              branchId: this.data.branchId,
             },
           )
         }
@@ -177,6 +175,7 @@
         this.disabled = false
       },
       async updateContent (data) {
+        console.log(data)
         const item = await CompanyRoomService.updateAddRoom(data)
         if (item.success === true) {
           this.successMessage = 'Successful'
@@ -194,6 +193,7 @@
       async fetchOneItem (id) {
         this.dataLoading = true
         const floor = await CompanyRoomService.fetchOneItem(id)
+        this.getLKPFloor(floor.object.branchId)
         this.data = floor.object
         this.dataLoading = false
       },
@@ -203,9 +203,9 @@
         this.LKPBrnch = LKPBrnch.list
         this.dataLoading = false
       },
-      async getLKPFloor () {
+      async getLKPFloor (branchId) {
         this.dataLoading = true
-        const LKPFloor = await CompaniesFloorService.getLKPFloor()
+        const LKPFloor = await CompaniesFloorService.getFloorByBranch(branchId)
         this.LKPFloor = LKPFloor.list
         this.dataLoading = false
       },
