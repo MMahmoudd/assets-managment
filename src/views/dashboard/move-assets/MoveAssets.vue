@@ -225,6 +225,7 @@
         { text: vm.$t('assets.assetCategoryName'), sortable: false, value: 'assetCategoryName' },
         { text: vm.$t('assets.assetModelName'), sortable: false, value: 'assetModelName' },
         { text: vm.$t('assets.assetTypeName'), sortable: false, value: 'assetTypeName' },
+        { text: vm.$t('assets.assetStatusName'), sortable: false, value: 'assetStatusName' },
         { text: vm.$t('assets.assetSerialNumber'), sortable: false, value: 'assetSerialNumber' },
         { text: vm.$t('actions.actions'), value: 'actions', sortable: false },
       ],

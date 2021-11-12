@@ -269,12 +269,6 @@
           title: vm.$t('sidbar.statistics'),
           to: '/',
           role: true,
-          children: [{
-            icon: 'mdi-chart-bar',
-            title: vm.$t('sidbar.statistics'),
-            to: '/',
-            role: true,
-          }],
         },
       ],
       companies: [

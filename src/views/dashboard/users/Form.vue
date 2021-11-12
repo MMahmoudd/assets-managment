@@ -90,12 +90,14 @@
                 md="6"
               >
                 <v-select
-                  v-model="data.branchId"
+                  v-model="data.branchIds"
                   :items="LKPBranch"
                   item-text="name"
                   item-value="id"
+                  chips
                   :label="$t('users.branchName')"
                   outlined
+                  multiple
                 />
               </v-col>
               <v-col
@@ -171,7 +173,7 @@
         userfullname: '',
         roleIds: [],
         rolesName: '',
-        branchId: null,
+        branchIds: [],
         companyId: null,
       },
       LKPRole: [],
@@ -204,7 +206,7 @@
             username: this.data.username,
             userfullname: this.data.userfullname,
             arrRoleId: this.data.roleIds,
-            branchId: this.data.branchId,
+            arrBranchId: this.data.branchIds,
             companyId: this.data.companyId,
           })
         } else {
@@ -216,7 +218,7 @@
               userfullname: this.data.userfullname,
               password: this.data.password,
               arrRoleId: this.data.roleIds,
-              branchId: this.data.branchId,
+              arrBranchId: this.data.branchIds,
               companyId: this.data.companyId,
             },
           )

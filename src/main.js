@@ -29,10 +29,10 @@ if (localStorage.getItem('userLang')) {
 }
 
 // config file with base endpoint url
-// axios.defaults.baseURL = process.env.APP_URL
+// axios.defaults.baseURL = process.env.VUE_APP_API_URL
 
 // Check User Is Authorized
-axios.interceptors.response.use((response) => {
+axios.interceptors.response.use(function (response) {
     return response
 }, function (error) {
     if (error.response.status === 401) {

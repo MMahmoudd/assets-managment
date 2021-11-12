@@ -209,6 +209,21 @@
                       </span>
                     </v-col>
                     <v-col
+                      cols="12"
+                      md="6"
+                      class="d-flex"
+                    >
+                      <v-select
+                        v-model="data.assetStatusId"
+                        :items="LKPStatus"
+                        item-text="name"
+                        item-value="id"
+                        :label="$t('assets.chooseStatus')"
+                        outlined
+                        dense
+                      />
+                    </v-col>
+                    <v-col
                       v-if="this.$route.params.id"
                       cols="12"
                       md="6"
@@ -383,37 +398,6 @@
                           v-model="data.assetMaintinanceDate"
                           class="mt-0 mb-0"
                           @input="assetMaintinanceDate = false"
-                        />
-                      </v-menu>
-                    </v-col>
-                    <v-col
-                      cols="12"
-                      md="6"
-                    >
-                      <v-menu
-                        v-model="printDate"
-                        :close-on-content-click="false"
-                        :nudge-right="40"
-                        transition="scale-transition"
-                        offset-y
-                        min-width="auto"
-                      >
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-text-field
-                            v-model="data.printDate"
-                            :label="$t('assets.printDate')"
-                            prepend-icon="mdi-calendar"
-                            readonly
-                            outlined
-                            dense
-                            v-bind="attrs"
-                            v-on="on"
-                          />
-                        </template>
-                        <v-date-picker
-                          v-model="data.printDate"
-                          class="mt-0 mb-0"
-                          @input="printDate = false"
                         />
                       </v-menu>
                     </v-col>
@@ -661,6 +645,7 @@
   const CompanyBranchesService = ServiceFactory.get('companyBranches')
   const CompaniesFloorService = ServiceFactory.get('CompaniesFloor')
   const CompanyRoomService = ServiceFactory.get('CompanyRoom')
+  const AssetsStatusService = ServiceFactory.get('AssetsStatus')
   export default {
     name: 'Companies',
     components: {
@@ -696,9 +681,9 @@
         assetProductionDate: null,
         assetExpiryDate: null,
         assetMaintinanceDate: null,
-        printDate: null,
         arrayOfAssetSerialNumber: [],
         assetCount: null,
+        assetStatusId: null,
       },
       LKPType: [],
       LKPCategory: [],
@@ -707,6 +692,7 @@
       LKPBrnch: [],
       LKPFloor: [],
       LKPRoom: [],
+      LKPStatus: [],
       formSerial: [],
       Roles: [],
       successSnackbar: false,
@@ -724,6 +710,7 @@
       this.checkLinksRole()
       this.getLKPCategory()
       this.getLKPBrnch()
+      this.getLKPStatus()
     },
     methods: {
       addAssetCategory () {
@@ -767,6 +754,7 @@
             branchId: this.data.branchId,
             floorId: this.data.floorId,
             roomId: this.data.roomId,
+            assetStatusId: this.data.assetStatusId,
             poid: this.data.poid,
             assetProductionDate: moment(this.data.assetProductionDate).format(),
             assetExpiryDate: moment(this.data.assetExpiryDate).format(),
@@ -786,6 +774,7 @@
               branchId: this.data.branchId,
               floorId: this.data.floorId,
               roomId: this.data.roomId,
+              assetStatusId: this.data.assetStatus,
               poid: this.data.poid,
               assetProductionDate: moment(this.data.assetProductionDate).format(),
               assetExpiryDate: moment(this.data.assetExpiryDate).format(),
@@ -898,6 +887,12 @@
         this.dataLoading = true
         const LKPRoom = await CompanyRoomService.getRoomByFloor(item)
         this.LKPRoom = LKPRoom.list
+        this.dataLoading = false
+      },
+      async getLKPStatus () {
+        this.dataLoading = true
+        const LKPStatus = await AssetsStatusService.getLKPStatus()
+        this.LKPStatus = LKPStatus.list
         this.dataLoading = false
       },
       checkLinksRole () {

@@ -1,9 +1,7 @@
-// import axios from 'axios'
 import Service from './Service'
 import { API_URL } from '../config'
 
 const resource = `${API_URL}/AssetBrand`
-// const token = localStorage.getItem('token')
 
 export default {
 
