@@ -334,6 +334,7 @@
         floorId: 0,
         roomId: 0,
       },
+      connection: null,
       moreDetails: false,
       acceptTransferDailog: false,
       assetsDetails: {},
@@ -372,6 +373,20 @@
     created () {
       this.getLKPCategory()
       this.getLKPBrnch()
+      // console.log('Starting connection to WebSocket Server')
+      // this.connection = new WebSocket('ws://0.0.0.0:8080')
+      // this.connection = new WebSocket('wss://10.10.11.36:6101')
+      this.connection = new WebSocket('wss://echo.websocket.org')
+      // console.log('socket', this.connection)
+
+      this.connection.onmessage = function (event) {
+        console.log('event', event)
+      }
+
+      this.connection.onopen = function (event) {
+        console.log(event)
+        console.log('Successfully connected to the echo websocket server...')
+      }
     },
     methods: {
       moreDetailsD (item) {
@@ -393,21 +408,34 @@
         this.dataLoading = false
       },
       async printAssets (item) {
-        this.dataLoading = true
-        if (this.printerIPAddress.length > 0) {
-          localStorage.setItem('printerIPAddress', this.printerIPAddress)
-          const print = await AssetsService.printAssets(this.printerIPAddress, item)
-          console.log(print)
-        } else if (localStorage.getItem('printerIPAddress')) {
-          const printerIPAddress = localStorage.getItem('printerIPAddress', this.printerIPAddress)
-          console.log('printerIPAddress', printerIPAddress)
-          const print = await AssetsService.printAssets(printerIPAddress, item)
-          console.log(print)
-        } else {
-          this.warningMessage = 'You must enter a valid IP address'
-          this.warningSnackbar = true
-        }
-        this.dataLoading = false
+        // this.dataLoading = true
+        // if (this.printerIPAddress.length > 0) {
+        //   localStorage.setItem('printerIPAddress', this.printerIPAddress)
+        //   const print = await AssetsService.printAssets(this.printerIPAddress, item)
+        //   console.log(print)
+        // } else if (localStorage.getItem('printerIPAddress')) {
+        //   const printerIPAddress = localStorage.getItem('printerIPAddress', this.printerIPAddress)
+        //   console.log('printerIPAddress', printerIPAddress)
+        //   const print = await AssetsService.printAssets(printerIPAddress, item)
+        //   console.log(print)
+        // } else {
+        //   this.warningMessage = 'You must enter a valid IP address'
+        //   this.warningSnackbar = true
+        // }
+        // this.dataLoading = false
+        console.log('Hello')
+        console.log(this.connection.send(
+          {
+            serial: item.assetSerialNumber,
+            description: item.assetDescription,
+          },
+        ))
+        this.connection.send(
+          {
+            serial: item.assetSerialNumber,
+            description: item.assetDescription,
+          },
+        )
       },
       async getLKPCategory () {
         this.dataLoading = true

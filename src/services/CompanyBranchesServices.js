@@ -3,6 +3,7 @@ import Service from './Service'
 import { API_URL } from '../config'
 
 const resource = `${API_URL}/CompanyBranch`
+const authenticationResource = `${API_URL}/Authentication`
 // const token = localStorage.getItem('token')
 
 export default {
@@ -33,6 +34,14 @@ export default {
     },
     getLKPBrnch () {
       return Service.get(`${resource}/LKPBrnch`)
+      .then((response) => {
+        if (response.status === 200) {
+            return response.data
+        }
+    })
+    },
+    GetUserBranch () {
+      return Service.get(`${authenticationResource}/GetUserBranch`)
       .then((response) => {
         if (response.status === 200) {
             return response.data

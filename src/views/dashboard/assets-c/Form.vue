@@ -774,7 +774,7 @@
               branchId: this.data.branchId,
               floorId: this.data.floorId,
               roomId: this.data.roomId,
-              assetStatusId: this.data.assetStatus,
+              assetStatusId: this.data.assetStatusId,
               poid: this.data.poid,
               assetProductionDate: moment(this.data.assetProductionDate).format(),
               assetExpiryDate: moment(this.data.assetExpiryDate).format(),

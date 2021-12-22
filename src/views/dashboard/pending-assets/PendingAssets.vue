@@ -160,11 +160,22 @@
             <v-card-actions>
               <v-spacer />
               <v-btn
+                v-if="assetsDetails.branchId != assetsDetails.newBranchId"
                 color="green"
                 outlined
                 :loading="loading"
                 :disabled="disabled"
-                @click="acceptTransfers(assetsDetails)"
+                @click="acceptTransfersBranch(assetsDetails)"
+              >
+                {{ $t('actions.accept') }}
+              </v-btn>
+              <v-btn
+                v-if="assetsDetails.branchId === assetsDetails.newBranchId"
+                color="green"
+                outlined
+                :loading="loading"
+                :disabled="disabled"
+                @click="acceptTransfersFloorAndRoom(assetsDetails)"
               >
                 {{ $t('actions.accept') }}
               </v-btn>
@@ -275,10 +286,29 @@
         // this.numberOfPages = companies.data.pageCount
         this.dataLoading = false
       },
-      async acceptTransfers (item) {
+      async acceptTransfersBranch (item) {
         this.loading = true
         this.disabled = true
-        const apperove = await AssetsService.acceptTransfer(item.assetId)
+        const apperove = await AssetsService.acceptTransferBranch(item.assetId)
+        if (apperove.success === true) {
+          this.acceptTransferDailog = false
+          this.successMessage = 'Successful'
+          this.successSnackbar = true
+          setTimeout(() => {
+            this.editedIndex = this.assets.indexOf(item)
+            this.assets.splice(this.editedIndex, 1)
+          }, 500)
+        } else {
+          this.errorMessage('something Error')
+          this.errorSnackbar = true
+        }
+        this.disabled = false
+        this.loading = false
+      },
+      async acceptTransfersFloorAndRoom (item) {
+        this.loading = true
+        this.disabled = true
+        const apperove = await AssetsService.acceptTransfersFloorAndRoom(item.assetId)
         if (apperove.success === true) {
           this.acceptTransferDailog = false
           this.successMessage = 'Successful'

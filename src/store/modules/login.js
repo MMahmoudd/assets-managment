@@ -51,7 +51,7 @@ const Login = {
         .then((response) => {
           state.isLoading = true
           console.log(response)
-          if (response.status === 200) {
+          if (response.data.success === true) {
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('userDataPermission', response.data.userPolicy)
             state.userToken = response.data.token

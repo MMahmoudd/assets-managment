@@ -1,7 +1,7 @@
 module.exports = {
   devServer: {
     disableHostCheck: true,
-    proxy: 'https://81.29.108.94/',
+    // proxy: 'https://81.29.108.94/',
   },
   publicPath: process.env.BASE_URL,
 

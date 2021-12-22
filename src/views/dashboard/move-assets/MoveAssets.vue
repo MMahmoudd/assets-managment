@@ -8,19 +8,30 @@
       <v-card-title>
         {{ $t('sidbar.moveAssets') }}
         <v-spacer />
-        <!-- <v-text-field
-          v-model="search"
+        <v-text-field
+          v-model="filter.search"
           append-icon="mdi-magnify"
-          :label="$t('search')"
+          :label="$t('actions.search')"
           single-line
           hide-details
-        /> -->
+          @keyup="fetchAllItems"
+        />
+        <v-spacer />
+        <v-select
+          v-model="filter.brnch"
+          :items="LKPBrnch"
+          item-text="name"
+          item-value="id"
+          :label="$t('assets.chooseBranch')"
+          single-line
+          hide-details
+          @input="fetchAllItems"
+        />
         <v-spacer />
       </v-card-title>
       <v-data-table
         :loading="dataLoading"
         :headers="headers"
-        :search="search"
         :items="status"
         :items-per-page="20"
         :footer-props="{
@@ -198,10 +209,14 @@
   import { ServiceFactory } from '../../../services/ServiceFactory'
   import moment from 'moment'
   const AssetsService = ServiceFactory.get('Assets')
+  const CompanyBranchesService = ServiceFactory.get('companyBranches')
   export default {
     name: 'Status',
     data: (vm) => ({
-      search: '',
+      filter: {
+        brnch: null,
+        search: '',
+      },
       dataLoading: false,
       page: 0,
       total: 0,
@@ -209,6 +224,7 @@
       options: {},
       status: [],
       Roles: [],
+      LKPBrnch: [],
       loading: false,
       moreDetails: false,
       assetsDetails: {},
@@ -239,6 +255,7 @@
     },
     created () {
       this.checkLinksRole()
+      this.getLKPBrnch()
     },
     methods: {
       moreDetailsD (item) {
@@ -253,11 +270,17 @@
         this.dataLoading = true
         const { page, itemsPerPage } = this.options
         const pageNumber = page - 1
-        const status = await AssetsService.getAllItems(itemsPerPage, page, pageNumber)
+        const status = await AssetsService.getAllItems(itemsPerPage, page, pageNumber, this.filter)
         console.log('status', status)
         this.status = status.list
         this.total = status.resultPaging.total
         this.numberOfPages = status.resultPaging.page
+        this.dataLoading = false
+      },
+      async getLKPBrnch () {
+        this.dataLoading = true
+        const LKPBrnch = await CompanyBranchesService.GetUserBranch()
+        this.LKPBrnch = LKPBrnch.object
         this.dataLoading = false
       },
       checkLinksRole () {
