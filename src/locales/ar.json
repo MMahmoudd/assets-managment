@@ -187,7 +187,9 @@
     "currentRoom": "الغرفة الحالية",
     "chooseNewRoom": "اختر غرفة جديدة",
     "filterAsset": "تصفية الأصول",
-    "printerIPAddress": "أدخل عنوان IP الخاص بالطابعة"
+    "printerIPAddress": "أدخل عنوان IP الخاص بالطابعة",
+    "ERPCode": "ERP كود",
+    "editERPCode": "تعديل كود ERP"
   },
   "assetsType": {
     "assetTypeDesc": "وصف نوع الاصل",

@@ -187,7 +187,9 @@
     "currentRoom": "Current Room",
     "chooseNewRoom": "choose New Room",
     "filterAsset": "filter Assets",
-    "printerIPAddress": "Enter printer IP Address"
+    "printerIPAddress": "Enter printer IP Address",
+    "ERPCode": "ERP Code",
+    "editERPCode": "Edit ERP Code"
   },
   "assetsType": {
     "assetTypeDesc": "Type Description",

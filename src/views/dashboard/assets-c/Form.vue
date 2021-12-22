@@ -224,6 +224,18 @@
                       />
                     </v-col>
                     <v-col
+                      cols="12"
+                      md="6"
+                    >
+                      <v-text-field
+                        v-model="data.erpCode"
+                        :label="$t('assets.ERPCode')"
+                        outlined
+                        dense
+                        required
+                      />
+                    </v-col>
+                    <v-col
                       v-if="this.$route.params.id"
                       cols="12"
                       md="6"
@@ -669,6 +681,7 @@
         assetId: null,
         assetName: '',
         assetDescription: '',
+        erpCode: '',
         assetCategoryId: null,
         assetTypeId: null,
         assetBrandId: null,
@@ -756,6 +769,7 @@
             roomId: this.data.roomId,
             assetStatusId: this.data.assetStatusId,
             poid: this.data.poid,
+            erpCode: this.data.erpCode,
             assetProductionDate: moment(this.data.assetProductionDate).format(),
             assetExpiryDate: moment(this.data.assetExpiryDate).format(),
             assetMaintinanceDate: moment(this.data.assetMaintinanceDate).format(),
@@ -776,6 +790,7 @@
               roomId: this.data.roomId,
               assetStatusId: this.data.assetStatusId,
               poid: this.data.poid,
+              erpCode: this.data.erpCode,
               assetProductionDate: moment(this.data.assetProductionDate).format(),
               assetExpiryDate: moment(this.data.assetExpiryDate).format(),
               assetMaintinanceDate: moment(this.data.assetMaintinanceDate).format(),

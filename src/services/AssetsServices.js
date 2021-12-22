@@ -6,11 +6,11 @@ const resource = `${API_URL}/Assets`
 
 export default {
 
-  getAllItems (itemsPerPage, page, pageNumber, filters) {
+  getAllItems (itemsPerPage, page, pageNumber, filters, IsPagination) {
     const searchQuery = (filters.search && filters.search !== '') ? '&filter=' + filters.search : ''
     const searchByBranchQuery = (filters.brnch && filters.brnch !== '') ? '&branchId=' + filters.brnch : ''
     const filterQuery = searchQuery + searchByBranchQuery
-    return Service.get(`${resource}/GetAll?page=${page}&limit=${itemsPerPage}${filterQuery}`)
+    return Service.get(`${resource}/GetAll?page=${page}&limit=${itemsPerPage}${filterQuery}&IsPagination=${IsPagination}`)
       .then((response) => {
         if (response.status === 200) {
             return response.data
@@ -102,6 +102,18 @@ export default {
   },
   GetAllAssetsForPrint (itemsPerPage, page, pageNumber, data) {
     return Service.post(`${resource}/GetAssetsForPrint?page=${page}&limit=${itemsPerPage}`, data)
+      .then((response) => {
+          console.log(response)
+        if (response.status === 200) {
+            return response.data
+        }
+    })
+  },
+  sednNewERP (serialArr, erpCode) {
+    return Service.post(`${resource}/UpdateErpCode`, {
+      serialArr: serialArr,
+      erpCode: erpCode,
+  })
       .then((response) => {
           console.log(response)
         if (response.status === 200) {
