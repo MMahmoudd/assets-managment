@@ -2,7 +2,13 @@
   "login" : {
     "userName": "User Name",
     "password": "Password",
-    "login": "Login"
+    "login": "Login",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password"
+  },
+  "lang": {
+    "ar": "عربى",
+    "en": "English"
   },
   "auth": {
     "NotAuthorized": "STOP HERE",
@@ -58,7 +64,8 @@
   "navbar": {
     "welcome": "Welcome",
     "selectLang": "Select Language",
-    "logout": "Logout"
+    "logout": "Logout ",
+    "changePassword": "Change Password "
   },
   "actions": {
     "actions": "Actions",
@@ -189,7 +196,8 @@
     "filterAsset": "filter Assets",
     "printerIPAddress": "Enter printer IP Address",
     "ERPCode": "ERP Code",
-    "editERPCode": "Edit ERP Code"
+    "editERPCode": "Edit ERP Code",
+    "assetCode": "asset Code"
   },
   "assetsType": {
     "assetTypeDesc": "Type Description",

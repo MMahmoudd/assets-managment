@@ -336,6 +336,14 @@ const router = new Router({
           meta: { role: 'Asset.GetAssetsForPrint' },
           beforeEnter: routerGuard,
         },
+        // change password
+        {
+          name: 'Change Password',
+          path: '/changePassword',
+          component: () => import('@/views/dashboard/change-password/change-password.vue'),
+          // meta: { role: 'Asset.GetAssetsForPrint' },
+          beforeEnter: routerGuard,
+        },
         {
           path: '/notAuthorized',
           name: 'notAuthorized',

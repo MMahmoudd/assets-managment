@@ -2,7 +2,13 @@
   "login" : {
     "userName": "أسم المستخدم",
     "password": "كلمة المرور",
-    "login": "تسجيل دخول"
+    "login": "تسجيل دخول",
+    "currentPassword": "كلمة المرور الحالية",
+    "newPassword": "كلمة المرور الجديدة"
+  },
+  "lang": {
+    "ar": "عربى",
+    "en": "English"
   },
   "auth": {
     "NotAuthorized": "قف هنا",
@@ -58,7 +64,8 @@
   "navbar": {
     "welcome": "أهلا بك",
     "selectLang": "اختر لغة",
-    "logout": "تسجيل خروج"
+    "logout": "تسجيل خروج ",
+    "changePassword": " تغيير كلمة السر"
   },
   "actions": {
     "actions": "الإجراءات",
@@ -189,7 +196,8 @@
     "filterAsset": "تصفية الأصول",
     "printerIPAddress": "أدخل عنوان IP الخاص بالطابعة",
     "ERPCode": "ERP كود",
-    "editERPCode": "تعديل كود ERP"
+    "editERPCode": "تعديل كود ERP",
+    "assetCode": "كود الأصول"
   },
   "assetsType": {
     "assetTypeDesc": "وصف نوع الاصل",

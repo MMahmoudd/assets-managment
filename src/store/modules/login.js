@@ -4,7 +4,7 @@ import router from '../../router/router'
 const Login = {
   state: {
     // isLoading: false,
-    loginErrorMessage: null,
+    loginErrorMessage: '',
     loginSuccessful: false,
     token: localStorage.getItem('token'),
     userDataPermission: null,
@@ -50,22 +50,23 @@ const Login = {
       axios.post(`${API_URL}/Authentication/LogIn`, userData)
         .then((response) => {
           state.isLoading = true
-          console.log(response)
           if (response.data.success === true) {
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('userDataPermission', response.data.userPolicy)
+            localStorage.setItem('userLang', 'en')
             state.userToken = response.data.token
             state.userDataPermission = response.data.userPolicy
             dispatch('checkUserData')
             window.location.href = process.env.BASE_URL
           } else {
-            // state.loginErrorMessage = response.data.error[0]
+            console.log('response=>', response)
+            state.loginErrorMessage = response.data.message
             state.isLoading = true
           }
         })
         .catch(error => {
-          console.log(error)
-          state.loginErrorMessage = error.response.data.error[0]
+          console.log('error=>', error)
+          state.loginErrorMessage = error.response.data.message
           state.isLoading = true
         })
     },

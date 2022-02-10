@@ -24,15 +24,14 @@
             alt="logo"
           >
         </div>
-        <!-- <template v-if="loginErrorMessage">
+        <template v-if="loginErrorMessage">
           <v-alert
             type="error"
             color="#ff5252"
           >
             {{ loginErrorMessage }}
-            The username or password is wrong
           </v-alert>
-        </template> -->
+        </template>
         <v-form @submit.prevent="loginSubmit()">
           <v-text-field
             v-model="userLogin.email"

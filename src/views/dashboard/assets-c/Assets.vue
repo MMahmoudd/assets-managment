@@ -196,6 +196,9 @@
                       <th class="text-center">
                         {{ $t('assets.ERPCode') }}
                       </th>
+                      <th class="text-center">
+                        {{ $t('assets.assetCode') }}
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -208,6 +211,7 @@
                       <td>{{ assetsDetails.assetMaintinanceDate }}</td>
                       <td>{{ assetsDetails.assetProductionDate }}</td>
                       <td>{{ assetsDetails.erpCode }}</td>
+                      <td>{{ assetsDetails.assetCode }}</td>
                     </tr>
                   </tbody>
                 </template>
@@ -421,7 +425,7 @@
         const paginate = this.IsPagination = false
         const assets = await AssetsService.getAllItems(0, 1, 1, this.filter, paginate)
         import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['assetId', 'assetName', 'assetDescription', 'assetCategoryId', 'assetCategoryName', 'assetTypeId', 'assetTypeName', 'assetBrandId', 'assetBrandName', 'assetModelId', 'assetModelName', 'branchName', 'branchId', 'floorId', 'floorName', 'roomId', 'roomName', 'poid', 'poName', 'assetProductionDate', 'assetExpiryDate', 'assetMaintinanceDate', 'assetSerialNumber', 'assetSerialGenerated', 'assetStatusId', 'assetStatusName', 'printCode', 'printStatus', 'printDate', 'printUserId', 'printUserName', 'erpCode']
+        const tHeader = ['assetId', 'assetName', 'assetDescription', 'assetCategoryId', 'assetCode', 'assetCategoryName', 'assetTypeId', 'assetTypeName', 'assetBrandId', 'assetBrandName', 'assetModelId', 'assetModelName', 'branchName', 'branchId', 'floorId', 'floorName', 'roomId', 'roomName', 'poid', 'poName', 'assetProductionDate', 'assetExpiryDate', 'assetMaintinanceDate', 'assetSerialNumber', 'assetSerialGenerated', 'assetStatusId', 'assetStatusName', 'printCode', 'printStatus', 'printDate', 'printUserId', 'printUserName', 'erpCode']
         const list = assets.list
         const data = this.formatJson(list)
         excel.export_json_to_excel({

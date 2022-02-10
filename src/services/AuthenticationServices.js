@@ -37,4 +37,12 @@ export default {
         }
       })
     },
+    changePassword (data) {
+      return Service.get(`${resource}/ChangePaassword?currentPassword=${data.currentPassword}&newPassword=${data.newPassword}`)
+      .then((response) => {
+        if (response.status === 200) {
+            return response.data
+        }
+    })
+    },
 }
