@@ -30,17 +30,6 @@ if (localStorage.getItem('userLang')) {
 
 // config file with base endpoint url
 // axios.defaults.baseURL = process.env.VUE_APP_API_URL
-
-// Check User Is Authorized
-axios.interceptors.response.use(function (response) {
-    return response
-}, function (error) {
-    if (error.response.status === 401) {
-        localStorage.removeItem('token')
-        return router.push('/login')
-    }
-    return Promise.reject(error.response)
-})
 const userData = localStorage.getItem('token')
 if (userData) {
   // axios.defaults.headers.common['x-access-token'] = 'Bearer ' + userData.token
