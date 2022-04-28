@@ -13,23 +13,27 @@ import AuthenticationServices from './AuthenticationServices'
 import roleServices from './roleServices'
 import AssetsStatusServices from './AssetsStatusServices'
 import ReportsServices from './ReportsServices'
+import EmployeeServices from './EmployeeServices'
+import POServices from './POServices'
 
 const services = {
-  companies: companiesService,
-  companyGroup: companyGroupServices,
-  companyBranches: CompanyBranchesServices,
-  CompanyArea: CompanyAreaServices,
-  CompaniesFloor: CompaniesFloorServices,
-  CompanyRoom: CompanyRoomServices,
-  Assets: AssetsServices,
-  AssetsType: AssetsTypeServices,
-  AssetsModel: AssetsModelServices,
-  AssetsCategory: AssetsCategoryServices,
-  AssetsBrand: AssetsBrandServices,
-  Authentication: AuthenticationServices,
-  Role: roleServices,
-  AssetsStatus: AssetsStatusServices,
-  Reports: ReportsServices,
+    companies: companiesService,
+    companyGroup: companyGroupServices,
+    companyBranches: CompanyBranchesServices,
+    CompanyArea: CompanyAreaServices,
+    CompaniesFloor: CompaniesFloorServices,
+    CompanyRoom: CompanyRoomServices,
+    Assets: AssetsServices,
+    AssetsType: AssetsTypeServices,
+    AssetsModel: AssetsModelServices,
+    AssetsCategory: AssetsCategoryServices,
+    AssetsBrand: AssetsBrandServices,
+    Authentication: AuthenticationServices,
+    Role: roleServices,
+    AssetsStatus: AssetsStatusServices,
+    Reports: ReportsServices,
+    Employee: EmployeeServices,
+    PO: POServices,
 }
 
 export const ServiceFactory = {

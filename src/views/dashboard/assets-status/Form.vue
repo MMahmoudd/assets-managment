@@ -18,12 +18,19 @@
               <v-col
                 cols="12"
               >
-                <v-text-field
+                <v-combobox
                   v-model="data.assetStatusDesc"
-                  :label="$t('assetsStatus.assetStatusDesc')"
+                  :items="LKP"
                   outlined
+                  :label="$t('assetsStatus.assetStatusDesc')"
                   required
                 />
+                <v-chip
+                  medium
+                  color="orange"
+                >
+                  IF YOU ADD NEW DATA MUST PRESS ON ENTER BUTTON BEFORE PRESS ON ADD BUTTON
+                </v-chip>
               </v-col>
             </v-row>
             <v-btn
@@ -75,6 +82,7 @@
         assetStatusId: null,
         assetStatusDesc: '',
       },
+      LKP: [],
       successSnackbar: false,
       errorSnackbar: false,
       timeout: 3000,
@@ -87,6 +95,7 @@
       if (this.$route.params.id) {
         this.fetchOneItem(this.$route.params.id)
       }
+      this.getLKPAssets()
     },
     methods: {
       async  submitForm () {
@@ -139,6 +148,12 @@
         this.dataLoading = true
         const company = await AssetsStatusService.fetchOneItem(id)
         this.data = company.object
+        this.dataLoading = false
+      },
+      async getLKPAssets () {
+        this.dataLoading = true
+        const LKPItems = await AssetsStatusService.getLKPStatus()
+        LKPItems.list.forEach(item => { this.LKP.push(item.name) })
         this.dataLoading = false
       },
     },

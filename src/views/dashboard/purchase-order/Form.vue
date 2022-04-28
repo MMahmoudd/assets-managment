@@ -6,7 +6,7 @@
   >
     <v-card class="py-5">
       <v-card-title>
-        {{ this.$route.params.id ? $t('assetsType.editType') : $t('assetsType.addType') }}
+        {{ this.$route.params.id ? $t('employee.edit') : $t('employee.add') }}
       </v-card-title>
       <template>
         <v-form
@@ -19,31 +19,64 @@
                 cols="12"
                 md="6"
               >
-                <v-combobox
-                  v-model="data.assetTypeDesc"
-                  :items="LKP"
+                <v-text-field
+                  v-model="data.ponumber"
+                  :label="$t('po.ponumber')"
                   outlined
-                  :label="$t('assetsType.assetTypeDesc')"
                   required
                 />
-                <v-chip
-                  small
-                  color="orange"
-                >
-                  IF YOU ADD NEW DATA MUST PRESS ON ENTER BUTTON BEFORE PRESS ON ADD BUTTON
-                </v-chip>
               </v-col>
               <v-col
                 cols="12"
                 md="6"
               >
-                <v-select
-                  v-model="data.assetCategoryId"
-                  :items="LKPCategory"
-                  item-text="name"
-                  item-value="id"
-                  :label="$t('assetsType.chooseCategory')"
+                <v-menu
+                  v-model="poissueDate"
+                  :close-on-content-click="false"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="data.poissueDate"
+                      :label="$t('po.poissueDate')"
+                      prepend-icon="mdi-calendar"
+                      readonly
+                      outlined
+                      dense
+                      v-bind="attrs"
+                      v-on="on"
+                    />
+                  </template>
+                  <v-date-picker
+                    v-model="data.poissueDate"
+                    class="mt-0 mb-0"
+                    @input="poissueDate = false"
+                  />
+                </v-menu>
+              </v-col>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <v-text-field
+                  v-model="data.povendor"
+                  :label="$t('po.povendor')"
                   outlined
+                  required
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <v-text-field
+                  v-model="data.poissuePerson"
+                  :label="$t('po.poissuePerson')"
+                  outlined
+                  required
                 />
               </v-col>
             </v-row>
@@ -66,7 +99,7 @@
       shaped
       absolute
       bottom
-      center
+      right
       :timeout="timeout"
     >
       {{ successMessage }}
@@ -77,7 +110,7 @@
       shaped
       absolute
       bottom
-      center
+      right
       :timeout="timeout"
     >
       {{ errorMessage }}
@@ -86,20 +119,22 @@
 </template>
 <script>
   import { ServiceFactory } from '../../../services/ServiceFactory'
-  const AssetsTypeService = ServiceFactory.get('AssetsType')
-  const AssetsCategoryService = ServiceFactory.get('AssetsCategory')
+  import moment from 'moment'
+  const Service = ServiceFactory.get('PO')
   export default {
-    name: 'Companies',
+    name: 'POForm',
     data: (vm) => ({
       dataLoading: false,
       valid: false,
+      poissueDate: false,
       data: {
-        assetTypeId: null,
-        assetTypeDesc: '',
-        assetCategoryId: null,
+        poid: 0,
+        ponumber: '',
+        poissueDate: '',
+        povendor: '',
+        poissuePerson: '',
+
       },
-      LKPCategory: [],
-      LKP: [],
       successSnackbar: false,
       errorSnackbar: false,
       timeout: 3000,
@@ -112,8 +147,6 @@
       if (this.$route.params.id) {
         this.fetchOneItem(this.$route.params.id)
       }
-      this.getLKPCategory()
-      this.getLKPAssets()
     },
     methods: {
       async  submitForm () {
@@ -121,46 +154,46 @@
         this.disabled = true
         if (this.$route.params.id) {
           this.updateContent({
-            assetTypeId: this.data.assetTypeId,
-            assetTypeDesc: this.data.assetTypeDesc,
-            assetCategoryId: this.data.assetCategoryId,
+            poid: this.data.poid,
+            ponumber: this.data.ponumber,
+            poissueDate: moment(this.data.poissueDate).format(),
+            povendor: this.data.povendor,
+            poissuePerson: this.data.poissuePerson,
           })
         } else {
           this.newItem(
             {
-              assetTypeDesc: this.data.assetTypeDesc,
-              assetCategoryId: this.data.assetCategoryId,
+              ponumber: this.data.ponumber,
+              poissueDate: moment(this.data.poissueDate).format(),
+              povendor: this.data.povendor,
+              poissuePerson: this.data.poissuePerson,
             },
           )
         }
       },
       async newItem (data) {
-        const item = await AssetsTypeService.updateAddAssetsType(data)
+        const item = await Service.AddOrUpdate(data)
+        console.log('new Item item', item)
         if (item.success === true) {
           this.successMessage = 'Successful'
           this.successSnackbar = true
           setTimeout(() => {
-            if (this.$route.name === 'Assets Type Form') {
-              this.$router.push('/Assets-type')
-            } else {
-              this.data.assetTypeDesc = ''
-              this.data.assetCategoryId = null
-            }
+            this.$router.push('/po')
           }, 1500)
         } else {
-          this.errorMessage('something Error')
+          this.errorMessage = item.message
           this.errorSnackbar = true
         }
         this.disabled = false
         this.loading = false
       },
       async updateContent (data) {
-        const item = await AssetsTypeService.updateAddAssetsType(data)
+        const item = await Service.AddOrUpdate(data)
         if (item.success === true) {
           this.successMessage = 'Successful'
           this.successSnackbar = true
           setTimeout(() => {
-            this.$router.push('/Assets-type')
+            this.$router.push('/po')
           }, 1500)
         } else {
           this.errorMessage('something Error')
@@ -171,20 +204,9 @@
       },
       async fetchOneItem (id) {
         this.dataLoading = true
-        const company = await AssetsTypeService.fetchOneItem(id)
-        this.data = company.object
-        this.dataLoading = false
-      },
-      async getLKPAssets () {
-        this.dataLoading = true
-        const LKPItems = await AssetsTypeService.getLKPType()
-        LKPItems.list.forEach(item => { this.LKP.push(item.name) })
-        this.dataLoading = false
-      },
-      async getLKPCategory () {
-        this.dataLoading = true
-        const LKPCategory = await AssetsCategoryService.getLKPCategory()
-        this.LKPCategory = LKPCategory.list
+        const user = await Service.fetchOneItem(id)
+        user.object.poissueDate = moment(user.object.poissueDate).format('YYYY-MM-DD')
+        this.data = user.object
         this.dataLoading = false
       },
     },

@@ -130,7 +130,6 @@
         const { page, itemsPerPage } = this.options
         const pageNumber = page - 1
         const category = await AssetsCategoryService.getAllItems(itemsPerPage, page, pageNumber)
-        console.log('category', category)
         this.category = category.list
         this.total = category.count
         // this.numberOfPages = companies.data.pageCount
@@ -140,7 +139,6 @@
         const userDataPermission = localStorage.getItem('userDataPermission')
         const permissions = userDataPermission.split(',')
         this.Roles = permissions
-        console.log('this.Roles', this.Roles)
       },
     },
   }

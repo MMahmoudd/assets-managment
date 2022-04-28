@@ -141,7 +141,6 @@
         const userDataPermission = localStorage.getItem('userDataPermission')
         const permissions = userDataPermission.split(',')
         this.Roles = permissions
-        console.log('this.Roles', this.Roles)
       },
     },
   }

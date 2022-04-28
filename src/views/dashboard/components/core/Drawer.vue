@@ -240,6 +240,76 @@
           />
         </v-list-item>
       </v-list-group>
+      <!-- employee-->
+      <v-list-group
+        no-action
+        sub-group
+        color="#ff9800"
+        :expand="expand"
+      >
+        <template
+          v-slot:activator
+        >
+          <v-list-item-icon>
+            <v-icon>fa-user-tie</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('sidbar.employee') }}</v-list-item-title>
+          </v-list-item-content>
+        </template>
+        <v-list-item
+          v-for="(item, i) in employee"
+          :key="i"
+          link
+        >
+          <base-item-group
+            v-if="item.children"
+            :key="`group-${i}`"
+            :item="item"
+          />
+          <base-item
+            v-else
+            :key="`item-${i}`"
+            :item="item"
+            color="#ff9800"
+          />
+        </v-list-item>
+      </v-list-group>
+      <!-- po-->
+      <v-list-group
+        no-action
+        sub-group
+        color="#ff9800"
+        :expand="expand"
+      >
+        <template
+          v-slot:activator
+        >
+          <v-list-item-icon>
+            <v-icon>fa-file-contract</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('sidbar.po') }}</v-list-item-title>
+          </v-list-item-content>
+        </template>
+        <v-list-item
+          v-for="(item, i) in PO"
+          :key="i"
+          link
+        >
+          <base-item-group
+            v-if="item.children"
+            :key="`group-${i}`"
+            :item="item"
+          />
+          <base-item
+            v-else
+            :key="`item-${i}`"
+            :item="item"
+            color="#ff9800"
+          />
+        </v-list-item>
+      </v-list-group>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -387,6 +457,28 @@
           icon: 'fa-print',
           to: '/Print-Assets',
           role: ['Asset.GetAssetsForPrint'],
+        },
+      ],
+      employee: [
+        {
+          title: vm.$t('sidbar.employee'),
+          icon: 'fa-user-tie',
+          to: '/employee',
+          role: true,
+        },
+        {
+          title: vm.$t('sidbar.AssignAssetToEmployee'),
+          icon: 'fa-person-dolly',
+          to: '/AssignAssetToEmployee',
+          role: true,
+        },
+      ],
+      PO: [
+        {
+          title: vm.$t('sidbar.po'),
+          icon: 'fa-file-contract',
+          to: '/po',
+          role: true,
         },
       ],
     }),

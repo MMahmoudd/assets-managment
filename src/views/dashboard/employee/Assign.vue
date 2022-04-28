@@ -6,7 +6,7 @@
   >
     <v-card class="py-5">
       <v-card-title>
-        {{ this.$route.params.id ? $t('assetCategory.editCategory') : $t('assetCategory.addCategory') }}
+        {{ $t('employee.AssignAssetToEmployee') }}
       </v-card-title>
       <template>
         <v-form
@@ -17,19 +17,33 @@
             <v-row class="mx-md-16 px-md-16">
               <v-col
                 cols="12"
+                md="6"
               >
-                <v-combobox
-                  v-model="data.assetCategoryName"
-                  :items="LKP"
+                <v-select
+                  v-model="data.employeeId"
+                  :items="LKPEmployee"
+                  item-text="name"
+                  item-value="id"
+                  :label="$t('employee.username')"
                   outlined
-                  :label="$t('assetCategory.assetCategoryName')"
+                  @input="getLKPAssets()"
+                  @change="getLKPAssets()"
                 />
-                <v-chip
-                  medium
-                  color="orange"
-                >
-                  IF YOU ADD NEW DATA MUST PRESS ON ENTER BUTTON BEFORE PRESS ON ADD BUTTON
-                </v-chip>
+              </v-col>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <v-select
+                  v-model="data.arrAssetId"
+                  :items="LKPAssets"
+                  item-text="name"
+                  item-value="id"
+                  :label="$t('employee.assets')"
+                  outlined
+                  multiple
+                  chips
+                />
               </v-col>
             </v-row>
             <v-btn
@@ -51,7 +65,7 @@
       shaped
       absolute
       bottom
-      center
+      right
       :timeout="timeout"
     >
       {{ successMessage }}
@@ -62,7 +76,7 @@
       shaped
       absolute
       bottom
-      center
+      right
       :timeout="timeout"
     >
       {{ errorMessage }}
@@ -71,18 +85,19 @@
 </template>
 <script>
   import { ServiceFactory } from '../../../services/ServiceFactory'
-  const AssetsCategoryService = ServiceFactory.get('AssetsCategory')
+  const Service = ServiceFactory.get('Employee')
+  const AssetsService = ServiceFactory.get('Assets')
   export default {
-    name: 'Companies',
+    name: 'EmployeeForm',
     data: (vm) => ({
       dataLoading: false,
       valid: false,
-      search: null,
       data: {
-        assetCategoryId: null,
-        assetCategoryName: '',
+        employeeId: 0,
+        arrAssetId: [],
       },
-      LKP: [],
+      LKPEmployee: [],
+      LKPAssets: [],
       successSnackbar: false,
       errorSnackbar: false,
       timeout: 3000,
@@ -92,58 +107,46 @@
       disabled: false,
     }),
     created () {
-      if (this.$route.params.id) {
-        this.fetchOneItem(this.$route.params.id)
-      }
-      this.getLKPAssets()
+      this.getLKPEmployee()
     },
     methods: {
       async  submitForm () {
         this.loading = true
         this.disabled = true
+        const form = {
+          employeeId: this.data.employeeId,
+          arrAssetId: this.data.arrAssetId,
+
+        }
         if (this.$route.params.id) {
-          console.log('this.data', this.data)
-          this.updateContent({
-            assetCategoryId: this.data.assetCategoryId,
-            assetCategoryName: this.data.assetCategoryName,
-          })
+          this.updateContent(form)
         } else {
-          console.log('this.data', this.data)
-          this.newItem(
-            {
-              assetCategoryName: this.data.assetCategoryName,
-            },
-          )
+          this.newItem(form)
         }
       },
       async newItem (data) {
-        console.log('new data', data)
-        const item = await AssetsCategoryService.updateAddAssetsCategory(data)
+        const item = await Service.AddOrUpdate(data)
         if (item.success === true) {
           this.successMessage = 'Successful'
           this.successSnackbar = true
           setTimeout(() => {
-            if (this.$route.name === 'Assets Category Form') {
-              this.$router.push('/Assets-category')
-            } else {
-              this.data.assetCategoryName = ''
-            }
-          }, 1000)
+            this.$router.push('/employee')
+          }, 1500)
         } else {
-          this.errorMessage('something Error')
+          this.errorMessage = item.message
           this.errorSnackbar = true
         }
         this.disabled = false
         this.loading = false
       },
       async updateContent (data) {
+        const item = await Service.AddOrUpdate(data)
         console.log('update Content item', data)
-        const item = await AssetsCategoryService.updateAddAssetsCategory(data)
         if (item.success === true) {
           this.successMessage = 'Successful'
           this.successSnackbar = true
           setTimeout(() => {
-            this.$router.push('/Assets-category')
+            this.$router.push('/employee')
           }, 1500)
         } else {
           this.errorMessage('something Error')
@@ -152,16 +155,17 @@
         this.disabled = false
         this.loading = false
       },
-      async fetchOneItem (id) {
+      async getLKPEmployee () {
         this.dataLoading = true
-        const company = await AssetsCategoryService.fetchOneItem(id)
-        this.data = company.object
+        const user = await Service.getLKPEmployee()
+        console.log('user', user)
+        this.LKPEmployee = user.list
         this.dataLoading = false
       },
       async getLKPAssets () {
         this.dataLoading = true
-        const LKPItems = await AssetsCategoryService.getLKPCategory()
-        LKPItems.list.forEach(item => { this.LKP.push(item.name) })
+        const LKP = await AssetsService.getLKPAsset()
+        this.LKPAssets = LKP.list
         this.dataLoading = false
       },
     },

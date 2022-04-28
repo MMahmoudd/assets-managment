@@ -1,236 +1,260 @@
 {
-  "login" : {
-    "userName": "أسم المستخدم",
-    "password": "كلمة المرور",
-    "login": "تسجيل دخول",
-    "currentPassword": "كلمة المرور الحالية",
-    "newPassword": "كلمة المرور الجديدة"
-  },
-  "lang": {
-    "ar": "عربى",
-    "en": "English"
-  },
-  "auth": {
-    "NotAuthorized": "قف هنا",
-    "YouAreNotAuthorizedToViewThisPage": "لا تملك الصلاحيات لتصفح هذه الصفحة!",
-    "auth&users": "الصلاحيات & المستخدمين",
-    "users": "المستخدمين",
-    "role": "المناصب",
-    "Permissions": "التصاريح"
-  },
-  "users": {
-    "users": "المستخدمين",
-    "editUser": "تعديل المستخدم",
-    "addUser": "اضافة مستخدم",
-    "username": "اسم المستخدم",
-    "userfullname": "الاسم بالكامل",
-    "mobile": "الهاتف",
-    "email": "البريد الاليكتروني",
-    "companyName":"الشركة",
-    "branchName":"الفرع",
-    "password": "كلمة السر",
-    "role": "منصب"
-  },
-  "role": {
-    "roles": "المناصب",
-    "roleName": "الاسم",
-    "roleGroup": "المجموعة",
-    "addRole": "إضافة دور",
-    "editRole": "تعديل الدور"
-  },
-  "permission": {
-    "permissions": "التصاريح",
-    "name": "الاسم"
-  },
-  "sidbar": {
-    "statistics": "الإحصائيات",
-    "companies": "الشركات",
-    "CompaniesBranches": "فروع الشركات",
-    "CompaniesGroup": "مجموعة الشركات",
-    "CompaniesArea": "منطقة الشركات",
-    "CompaniesFloor": "طوابق الشركات",
-    "CompaniesRoom": "غرف الشركات",
-    "assets": "ادارة الاصول",
-    "assetsType": "نوع الأصول",
-    "assetsBrand": "العلامة التجارية للأصول",
-    "assetsCategory": "فئة الأصول",
-    "assetsModel": "نموذج الأصول",
-    "assetsStatus": "حالة الأصول",
-    "moveAssets": "نقل الأصول",
-    "pendingAssets": "الأصول المعلقة",
-    "reports": "التقارير",
-    "printAssets": "طباعة الأصول"
-  },
-  "navbar": {
-    "welcome": "أهلا بك",
-    "selectLang": "اختر لغة",
-    "logout": "تسجيل خروج ",
-    "changePassword": " تغيير كلمة السر"
-  },
-  "actions": {
-    "actions": "الإجراءات",
-    "edit": "تعديل",
-    "noData": "لا يوجد بيانات",
-    "Add": "أضافة جديد",
-    "save": "حفظ التغييرات",
-    "add": "اضافة",
-    "moreDetails": "المزيد من التفاصيل",
-    "close": "اغلاق",
-    "accept": "قبول",
-    "addCategory": "اضافة فئة",
-    "moveAssetsToBranch": "نقل الأصول من فرع إلى فرع",
-    "moveAssetsToFloor": "نقل الأصول من طابق إلى آخر",
-    "moveAssetsToRoom": "نقل الأصول من غرفة إلى غرفة",
-    "viewReport": "عرض التقرير",
-    "addType": "اضافة نوع",
-    "addBrand": "اضافة علامة تجارية",
-    "addModel": "اضافة موديل",
-    "search": "بحث",
-    "getAssets": "الحصول على الأصول",
-    "print": "طباعة",
-    "export": "تنزيل"
-  },
-  "statistics": {
-    "assetsStatistics": "إحصائيات الأصول",
-    "companiesStatistics": "إحصائيات الشركات"
-  },
-  "companies": {
-    "companies&branches": "الشركات والفروع",
-    "companies": "الشركات",
-    "id": "رقم",
-    "arName": "الاسم العربى",
-    "enName": "الاسم الانجليزي",
-    "groupName": "أسم المجموعة",
-    "addCompanies": "اضافة شركة",
-    "editCompanies": "تعديل الشركة",
-    "chooseGroup": "اختر مجموعة"
-  },
-  "branches": {
-    "CompaniesBranches": "فروع الشركات",
-    "branchName": "اسم الفرع",
-    "branchAddress": "عنوان الفرع",
-    "areaName": "اسم المنطقة",
-    "addBranch": "اضافة فرع",
-    "editBranch": "تعديل الفرع"
-  },
-  "groups": {
-    "groupName": "اسم المجموعة",
-    "groupLogo": "شعار المجموعة",
-    "addGroup": "اضافة مجموعة",
-    "editGroup": "تعديل المجموعة"
-  },
-  "area": {
-    "areaName": "اسم المنطقة",
-    "companyName": "اسم الشركة",
-    "addArea": "اضافة منطقة",
-    "editArea": "تعديل المنطقة"
-  },
-  "floor": {
-    "floorName": "اسم الطابق",
-    "branchName": "اسم الفرع",
-    "addFloor": "اضافة طابق",
-    "editFloor": "تعديل الطابق"
-  },
-  "room": {
-    "roomName": "اسم الطابق",
-    "roomNumber": "رقم الغرفة",
-    "branchName": "اسم الفرع",
-    "floorName": "اسم الطابق",
-    "addRoom": "اضافة غرفة",
-    "editRoom": "تعديل الغرفة"
-  },
-  "assets": {
-    "assets": "الاصول",
-    "assetName": "الاسم",
-    "assetBrandName": "العلامة التجارية",
-    "assetDescription": "الوصف",
-    "assetCategoryName": "الفئة",
-    "assetModelName": "الموديل",
-    "assetTypeName": "النوع",
-    "assetSerialNumber": "الرقم التسلسلي",
-    "branchName":"الفرع",
-    "floorName":"الطابق",
-    "roomName":"الغرفة",
-    "assetStatusName": "الحالة",
-    "moreDetails": " المزيد من التفاصيل عن ",
-    "poName": "اسم أمر الشراء",
-    "assetExpiryDate": "تاريخ انتهاء الصلاحية",
-    "assetMaintinanceDate": "تاريخ الصيانة",
-    "assetProductionDate": "تاريخ الإنتاج",
-    "assetsType": "نوع الأصول",
-    "assetsBrand": "العلامة التجارية",
-    "assetsCategory": "فئة الأصول",
-    "assetsModel": "نموذج الأصول",
-    "editAssets": "تعديل الاصل",
-    "addAssets": "إضافة الاصل",
-    "chooseCtegory": "اختر الفئة",
-    "chooseType": "اختر نوع",
-    "chooseBrand":"اختر علامة تجارية",
-    "chooseModel": "اختر الموديل",
-    "chooseBranch": "اختر الفرع",
-    "chooseFloor": "اختر الطابق",
-    "chooseRoom": "اختر الغرفة",
-    "chooseStatus": "اختر حالة",
-    "assetCount": "عدد الأصول",
-    "arrayOfAssetSerialNumber": "الرقم التسلسلي للأصل",
-    "addSerial": "اضافة رقم تسلسلي",
-    "newSerial": "رقم تسلسلي",
-    "basicInfo": "المعلومات الأساسية",
-    "assetsInfo": "معلومات الأصول",
-    "companiesInfo": "معلومات الشركات",
-    "datesInfo": "التواريخ",
-    "serialsInfo": "معلومات الارقام التسلسلي",
-    "printDate": "تاريخ الطباعة",
-    "moveAssets": "نقل الأصول من فرع إلى فرع",
-    "currentBranch": "الفرع الحالي",
-    "chooseNewBranch": "اختر فرع جديد",
-    "description": "الوصف",
-    "actionUserDate": "تاريخ التحويل",
-    "transActionDesc": "سبب التحويل",
-    "confirmAccept": " تأكيد قبول التحويل",
-    "areYouSure": "هل أنت متأكد من تأكيد هذا التحويل؟",
-    "currentFloor": "الطابق الحالي",
-    "chooseNewFloor": "اختر طابق جديد",
-    "currentRoom": "الغرفة الحالية",
-    "chooseNewRoom": "اختر غرفة جديدة",
-    "filterAsset": "تصفية الأصول",
-    "printerIPAddress": "أدخل عنوان IP الخاص بالطابعة",
-    "ERPCode": "ERP كود",
-    "editERPCode": "تعديل كود ERP",
-    "assetCode": "كود الأصول"
-  },
-  "assetsType": {
-    "assetTypeDesc": "وصف نوع الاصل",
-    "editType": "تعديل النوع",
-    "addType": "اضافة نوع",
-    "chooseCategory": "اختر فئة"
-  },
-  "assetsBrand": {
-    "brandName": "الاسم",
-    "editBrand": "تعديل العلامة التجارية",
-    "addBrand": "اضافة علامة تجارية",
-    "chooseType": "اختر نوع"
-  },
-  "assetCategory": {
-    "assetCategoryName": "الاسم",
-    "editCategory": "تعديل الفئة",
-    "addCategory": "اضافة فئة"
-  },
-  "assetModel": {
-    "assetModelName": "اسم الموديل",
-    "assetBrandName":"العلامة التجارية",
-    "editModel": "تعديل الموديل",
-    "addModel": "اضافة موديل",
-    "chooseBrand": "اختر علامة تجارية"
-  },
-  "assetsStatus": {
-    "assetsStatus": "حالة الأصول",
-    "editStatus": "تعديل الحالة",
-    "addStatus": "اضافة حالة",
-    "assetStatusDesc": "وصف الحالة"
-  },
-  "reports": {
-    "reports" :"التقارير",
-    "reportDetails": "تفاصيل التقرير"
-  }
+    "login": {
+        "userName": "أسم المستخدم",
+        "password": "كلمة المرور",
+        "login": "تسجيل دخول",
+        "currentPassword": "كلمة المرور الحالية",
+        "newPassword": "كلمة المرور الجديدة"
+    },
+    "lang": {
+        "ar": "عربى",
+        "en": "English"
+    },
+    "auth": {
+        "NotAuthorized": "قف هنا",
+        "YouAreNotAuthorizedToViewThisPage": "لا تملك الصلاحيات لتصفح هذه الصفحة!",
+        "auth&users": "الصلاحيات & المستخدمين",
+        "users": "المستخدمين",
+        "role": "المناصب",
+        "Permissions": "التصاريح"
+    },
+    "users": {
+        "users": "المستخدمين",
+        "editUser": "تعديل المستخدم",
+        "addUser": "اضافة مستخدم",
+        "username": "اسم المستخدم",
+        "userfullname": "الاسم بالكامل",
+        "mobile": "الهاتف",
+        "email": "البريد الاليكتروني",
+        "companyName": "الشركة",
+        "branchName": "الفرع",
+        "password": "كلمة السر",
+        "role": "منصب"
+    },
+    "role": {
+        "roles": "المناصب",
+        "roleName": "الاسم",
+        "roleGroup": "المجموعة",
+        "addRole": "إضافة دور",
+        "editRole": "تعديل الدور"
+    },
+    "permission": {
+        "permissions": "التصاريح",
+        "name": "الاسم"
+    },
+    "sidbar": {
+        "statistics": "الإحصائيات",
+        "companies": "الشركات",
+        "CompaniesBranches": "فروع الشركات",
+        "CompaniesGroup": "مجموعة الشركات",
+        "CompaniesArea": "منطقة الشركات",
+        "CompaniesFloor": "طوابق الشركات",
+        "CompaniesRoom": "غرف الشركات",
+        "assets": "ادارة الاصول",
+        "assetsType": "نوع الأصول",
+        "assetsBrand": "العلامة التجارية للأصول",
+        "assetsCategory": "فئة الأصول",
+        "assetsModel": "نموذج الأصول",
+        "assetsStatus": "حالة الأصول",
+        "moveAssets": "نقل الأصول",
+        "pendingAssets": "الأصول المعلقة",
+        "reports": "التقارير",
+        "printAssets": "طباعة الأصول",
+        "employee": "الموظفين",
+        "AssignAssetToEmployee": "تخصيص الأصول للموظفين",
+        "po": "أمر شراء"
+    },
+    "navbar": {
+        "welcome": "أهلا بك",
+        "selectLang": "اختر لغة",
+        "logout": "تسجيل خروج ",
+        "changePassword": " تغيير كلمة السر"
+    },
+    "actions": {
+        "actions": "الإجراءات",
+        "edit": "تعديل",
+        "noData": "لا يوجد بيانات",
+        "Add": "أضافة جديد",
+        "save": "حفظ التغييرات",
+        "add": "اضافة",
+        "moreDetails": "المزيد من التفاصيل",
+        "close": "اغلاق",
+        "accept": "قبول",
+        "addCategory": "اضافة فئة",
+        "moveAssetsToBranch": "نقل الأصول من فرع إلى فرع",
+        "moveAssetsToFloor": "نقل الأصول من طابق إلى آخر",
+        "moveAssetsToRoom": "نقل الأصول من غرفة إلى غرفة",
+        "viewReport": "عرض التقرير",
+        "addType": "اضافة نوع",
+        "addBrand": "اضافة علامة تجارية",
+        "addModel": "اضافة موديل",
+        "search": "بحث",
+        "getAssets": "الحصول على الأصول",
+        "print": "طباعة",
+        "export": "تنزيل",
+        "changeStatus": "تغيير الحالة"
+    },
+    "statistics": {
+        "assetsStatistics": "إحصائيات الأصول",
+        "companiesStatistics": "إحصائيات الشركات"
+    },
+    "companies": {
+        "companies&branches": "الشركات والفروع",
+        "companies": "الشركات",
+        "id": "رقم",
+        "arName": "الاسم العربى",
+        "enName": "الاسم الانجليزي",
+        "groupName": "أسم المجموعة",
+        "addCompanies": "اضافة شركة",
+        "editCompanies": "تعديل الشركة",
+        "chooseGroup": "اختر مجموعة"
+    },
+    "branches": {
+        "CompaniesBranches": "فروع الشركات",
+        "branchName": "اسم الفرع",
+        "branchAddress": "عنوان الفرع",
+        "areaName": "اسم المنطقة",
+        "addBranch": "اضافة فرع",
+        "editBranch": "تعديل الفرع"
+    },
+    "groups": {
+        "groupName": "اسم المجموعة",
+        "groupLogo": "شعار المجموعة",
+        "addGroup": "اضافة مجموعة",
+        "editGroup": "تعديل المجموعة"
+    },
+    "area": {
+        "areaName": "اسم المنطقة",
+        "companyName": "اسم الشركة",
+        "addArea": "اضافة منطقة",
+        "editArea": "تعديل المنطقة"
+    },
+    "floor": {
+        "floorName": "اسم الطابق",
+        "branchName": "اسم الفرع",
+        "addFloor": "اضافة طابق",
+        "editFloor": "تعديل الطابق"
+    },
+    "room": {
+        "roomName": "اسم الطابق",
+        "roomNumber": "رقم الغرفة",
+        "branchName": "اسم الفرع",
+        "floorName": "اسم الطابق",
+        "addRoom": "اضافة غرفة",
+        "editRoom": "تعديل الغرفة"
+    },
+    "assets": {
+        "assets": "الاصول",
+        "assetName": "الاسم",
+        "assetBrandName": "العلامة التجارية",
+        "assetDescription": "الوصف",
+        "assetCategoryName": "الفئة",
+        "assetModelName": "الموديل",
+        "assetTypeName": "النوع",
+        "assetSerialNumber": "الرقم التسلسلي",
+        "branchName": "الفرع",
+        "floorName": "الطابق",
+        "roomName": "الغرفة",
+        "assetStatusName": "الحالة",
+        "moreDetails": " المزيد من التفاصيل عن ",
+        "poName": "اسم أمر الشراء",
+        "assetExpiryDate": "تاريخ انتهاء الصلاحية",
+        "assetMaintinanceDate": "تاريخ الصيانة",
+        "assetProductionDate": "تاريخ الإنتاج",
+        "assetsType": "نوع الأصول",
+        "assetsBrand": "العلامة التجارية",
+        "assetsCategory": "فئة الأصول",
+        "assetsModel": "نموذج الأصول",
+        "editAssets": "تعديل الاصل",
+        "addAssets": "إضافة الاصل",
+        "chooseCtegory": "اختر الفئة",
+        "chooseType": "اختر نوع",
+        "chooseBrand": "اختر علامة تجارية",
+        "chooseModel": "اختر الموديل",
+        "chooseBranch": "اختر الفرع",
+        "chooseFloor": "اختر الطابق",
+        "chooseRoom": "اختر الغرفة",
+        "chooseStatus": "اختر حالة",
+        "assetCount": "عدد الأصول",
+        "arrayOfAssetSerialNumber": "الرقم التسلسلي للأصل",
+        "addSerial": "اضافة رقم تسلسلي",
+        "newSerial": "رقم تسلسلي",
+        "basicInfo": "المعلومات الأساسية",
+        "assetsInfo": "معلومات الأصول",
+        "companiesInfo": "معلومات الشركات",
+        "datesInfo": "التواريخ",
+        "serialsInfo": "معلومات الارقام التسلسلي",
+        "printDate": "تاريخ الطباعة",
+        "moveAssets": "نقل الأصول من فرع إلى فرع",
+        "currentBranch": "الفرع الحالي",
+        "chooseNewBranch": "اختر فرع جديد",
+        "description": "الوصف",
+        "actionUserDate": "تاريخ التحويل",
+        "transActionDesc": "سبب التحويل",
+        "confirmAccept": " تأكيد قبول التحويل",
+        "areYouSure": "هل أنت متأكد من تأكيد هذا التحويل؟",
+        "currentFloor": "الطابق الحالي",
+        "chooseNewFloor": "اختر طابق جديد",
+        "currentRoom": "الغرفة الحالية",
+        "chooseNewRoom": "اختر غرفة جديدة",
+        "filterAsset": "تصفية الأصول",
+        "printerIPAddress": "أدخل عنوان IP الخاص بالطابعة",
+        "ERPCode": "ERP كود",
+        "editERPCode": "تعديل كود ERP",
+        "assetCode": "كود الأصول"
+    },
+    "assetsType": {
+        "assetTypeDesc": "وصف نوع الاصل",
+        "editType": "تعديل النوع",
+        "addType": "اضافة نوع",
+        "chooseCategory": "اختر فئة"
+    },
+    "assetsBrand": {
+        "brandName": "الاسم",
+        "editBrand": "تعديل العلامة التجارية",
+        "addBrand": "اضافة علامة تجارية",
+        "chooseType": "اختر نوع"
+    },
+    "assetCategory": {
+        "assetCategoryName": "الاسم",
+        "editCategory": "تعديل الفئة",
+        "addCategory": "اضافة فئة"
+    },
+    "assetModel": {
+        "assetModelName": "اسم الموديل",
+        "assetBrandName": "العلامة التجارية",
+        "editModel": "تعديل الموديل",
+        "addModel": "اضافة موديل",
+        "chooseBrand": "اختر علامة تجارية"
+    },
+    "assetsStatus": {
+        "assetsStatus": "حالة الأصول",
+        "editStatus": "تعديل الحالة",
+        "addStatus": "اضافة حالة",
+        "assetStatusDesc": "وصف الحالة"
+    },
+    "reports": {
+        "reports": "التقارير",
+        "reportDetails": "تفاصيل التقرير"
+    },
+    "employee": {
+        "employee": "الموظفين",
+        "edit": "تعديل الموظف",
+        "add": "اضافة موظف",
+        "username": "الاسم",
+        "mobile": "هاتف",
+        "email": "البريد الاليكتروني",
+        "location": "الموقع",
+        "AssignAssetToEmployee": "تخصيص الأصول للموظفين",
+        "assets": "الاصول"
+    },
+    "po": {
+        "po": "أمر شراء",
+        "povendor": "بائع",
+        "ponumber": "رقم البائع",
+        "poissuePerson": "الشخص الذي أصدر",
+        "poissueDate": "تاريخ الإصدار",
+        "edit": "تعديل أمر الشراء",
+        "add": "إضافة امر شراء"
+    }
 }

@@ -14,78 +14,234 @@
             @submit.prevent="submitForm()"
           >
             <v-container fluid>
-              <!--<v-row class="mx-md-16 px-md-16">
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    v-model="data.roomName"
-                    :label="$t('room.roomName')"
-                    outlined
-                    required
-                  />
+              <v-row class="mx-md-16 px-md-16">
+                <h3>{{ $t('assets.assetsInfo') }}</h3>
+                <v-col cols="12">
+                  <div class="border py-5">
+                    <v-row class=" px-2">
+                      <v-col
+                        cols="12"
+                        md="6"
+                        class="d-flex"
+                      >
+                        <v-select
+                          v-model="data.categoryId"
+                          :items="LKPCategory"
+                          item-text="name"
+                          item-value="id"
+                          :label="$t('assets.chooseCtegory')"
+                          outlined
+                          dense
+                          @input="getLKPType(data.categoryId)"
+                        />
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="6"
+                        class="d-flex"
+                      >
+                        <v-select
+                          v-model="data.typeId"
+                          :items="LKPType"
+                          item-text="name"
+                          item-value="id"
+                          :label="$t('assets.chooseType')"
+                          outlined
+                          dense
+                          @input="getLKPBrand(data.typeId)"
+                        />
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="6"
+                        class="d-flex"
+                      >
+                        <v-select
+                          v-model="data.brandId"
+                          :items="LKPBrand"
+                          item-text="name"
+                          item-value="id"
+                          :label="$t('assets.chooseBrand')"
+                          outlined
+                          dense
+                          @input="getLKPModel(data.brandId)"
+                        />
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="6"
+                        class="d-flex"
+                      >
+                        <v-select
+                          v-model="data.modelId"
+                          :items="LKPModel"
+                          item-text="name"
+                          item-value="id"
+                          :label="$t('assets.chooseModel')"
+                          outlined
+                          dense
+                        />
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="6"
+                        class="d-flex"
+                      >
+                        <v-select
+                          v-model="data.statusId"
+                          :items="LKPStatus"
+                          item-text="name"
+                          item-value="id"
+                          :label="$t('assets.chooseStatus')"
+                          outlined
+                          dense
+                        />
+                      </v-col>
+                    </v-row>
+                  </div>
                 </v-col>
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-text-field
-                    v-model="data.roomNumber"
-                    :label="$t('room.roomNumber')"
-                    outlined
-                    required
-                  />
+                <h3>{{ $t('assets.companiesInfo') }}</h3>
+                <v-col cols="12">
+                  <div class="border py-5">
+                    <v-row class=" px-2">
+                      <v-col
+                        cols="12"
+                        md="6"
+                      >
+                        <v-select
+                          v-model="data.branchId"
+                          :items="LKPBrnch"
+                          item-text="name"
+                          item-value="id"
+                          :label="$t('assets.chooseBranch')"
+                          outlined
+                          dense
+                          @input="getLKPFloor(data.branchId)"
+                        />
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="6"
+                      >
+                        <v-select
+                          v-model="data.floorId"
+                          :items="LKPFloor"
+                          item-text="name"
+                          item-value="id"
+                          :label="$t('assets.chooseFloor')"
+                          outlined
+                          dense
+                          @input="getLKPRoom(data.floorId)"
+                        />
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="6"
+                      >
+                        <v-select
+                          v-model="data.roomId"
+                          :items="LKPRoom"
+                          item-text="name"
+                          item-value="id"
+                          :label="$t('assets.chooseRoom')"
+                          outlined
+                          dense
+                        />
+                      </v-col>
+                    </v-row>
+                  </div>
                 </v-col>
-
-                <v-col
-                  cols="12"
-                  md="6"
-                >
-                  <v-select
-                    v-model="data.branchId"
-                    :items="LKPBrnch"
-                    item-text="name"
-                    item-value="id"
-                    return-object
-                    :label="$t('room.branchName')"
-                    outlined
-                  />
+                <h3>{{ $t('assets.datesInfo') }}</h3>
+                <v-col cols="12">
+                  <div class="border py-5">
+                    <v-row class=" px-2">
+                      <v-col
+                        cols="12"
+                        md="6"
+                      >
+                        <v-menu
+                          v-model="from"
+                          :close-on-content-click="false"
+                          :nudge-right="40"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="data.from"
+                              :label="$t('assets.from')"
+                              prepend-icon="mdi-calendar"
+                              readonly
+                              outlined
+                              dense
+                              v-bind="attrs"
+                              v-on="on"
+                            />
+                          </template>
+                          <v-date-picker
+                            v-model="data.from"
+                            class="mt-0 mb-0"
+                            @input="from = false"
+                          />
+                        </v-menu>
+                      </v-col>
+                      <v-col
+                        cols="12"
+                        md="6"
+                      >
+                        <v-menu
+                          v-model="to"
+                          :close-on-content-click="false"
+                          :nudge-right="40"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="auto"
+                        >
+                          <template v-slot:activator="{ on, attrs }">
+                            <v-text-field
+                              v-model="data.to"
+                              :label="$t('assets.to')"
+                              prepend-icon="mdi-calendar"
+                              readonly
+                              outlined
+                              dense
+                              v-bind="attrs"
+                              v-on="on"
+                            />
+                          </template>
+                          <v-date-picker
+                            v-model="data.to"
+                            class="mt-0 mb-0"
+                            @input="to = false"
+                          />
+                        </v-menu>
+                      </v-col>
+                    </v-row>
+                  </div>
                 </v-col>
-                <v-col
-                  cols="12"
-                  md="6"
+              </v-row>
+              <v-row>
+                <v-btn
+                  type="submit"
+                  class="mx-1 my-auto"
+                  color="indigo"
+                  :loading="loading"
+                  :disabled="disabled"
                 >
-                  <v-select
-                    v-model="data.floorId"
-                    :items="LKPFloor"
-                    item-text="name"
-                    item-value="id"
-                    return-object
-                    :label="$t('room.floorName')"
-                    outlined
-                  />
-                </v-col>
-              </v-row>-->
-              <v-btn
-                type="submit"
-                class="mx-1 my-auto"
-                color="indigo"
-                :loading="loading"
-                :disabled="disabled"
-              >
-                {{ $t('actions.viewReport') }}
-              </v-btn>
-              <v-btn
-                v-if="rows.length >= 1"
-                class="mx-1 my-auto"
-                color="indigo"
-                :loading="loading"
-                :disabled="disabled"
-                @click="exportExel()"
-              >
-                {{ $t('actions.export') }}
-              </v-btn>
+                  {{ $t('actions.viewReport') }}
+                </v-btn>
+                <v-btn
+                  v-if="rows.length >= 1"
+                  class="mx-1 my-auto"
+                  color="indigo"
+                  :loading="loading"
+                  :disabled="disabled"
+                  @click="exportExel()"
+                >
+                  {{ $t('actions.export') }}
+                </v-btn>
+              </v-row>
             </v-container>
           </v-form>
         </template>
@@ -149,38 +305,49 @@
 </template>
 <script>
   import { ServiceFactory } from '../../../services/ServiceFactory'
+  import moment from 'moment'
   const ReportsService = ServiceFactory.get('Reports')
-  // const CompanyRoomService = ServiceFactory.get('CompanyRoom')
-  // const CompaniesFloorService = ServiceFactory.get('CompaniesFloor')
-  // const CompanyBranchesService = ServiceFactory.get('companyBranches')
+  const AssetsTypeService = ServiceFactory.get('AssetsType')
+  const AssetsCategoryService = ServiceFactory.get('AssetsCategory')
+  const AssetsBrandService = ServiceFactory.get('AssetsBrand')
+  const AssetsModelService = ServiceFactory.get('AssetsModel')
+  const CompanyBranchesService = ServiceFactory.get('companyBranches')
+  const CompaniesFloorService = ServiceFactory.get('CompaniesFloor')
+  const CompanyRoomService = ServiceFactory.get('CompanyRoom')
+  const AssetsStatusService = ServiceFactory.get('AssetsStatus')
   export default {
     name: 'Companies',
     data: (vm) => ({
       dataLoading: false,
       valid: false,
       fixedHeader: true,
+      from: false,
+      to: false,
       data: {
-        // id: 0,
-        // name: '',
         procedure: '',
-        // from: null,
-        // to: null,
-        // categoryId: 0,
-        // modelId: 0,
-        // typeId: 0,
-        // brandId: 0,
-        // branchId: 0,
-        // floorId: 0,
-        // roomId: 0,
-        // statusId: 0,
-        // userId: 0,
+        from: null,
+        to: null,
+        categoryId: null,
+        modelId: null,
+        typeId: null,
+        brandId: null,
+        branchId: null,
+        floorId: null,
+        roomId: null,
+        statusId: null,
       },
       bookType: 'xlsx',
       autoWidth: true,
       header: [],
       rows: [],
+      LKPType: [],
+      LKPCategory: [],
+      LKPBrand: [],
+      LKPModel: [],
       LKPBrnch: [],
       LKPFloor: [],
+      LKPRoom: [],
+      LKPStatus: [],
       row: {},
       successSnackbar: false,
       errorSnackbar: false,
@@ -194,8 +361,9 @@
       // if (this.$route.params.id) {
       //   this.fetchOneItem(this.$route.params.id)
       // }
-      // this.getLKPBrnch()
-      // this.getLKPFloor()
+      this.getLKPCategory()
+      this.getLKPBrnch()
+      this.getLKPStatus()
     },
     methods: {
       exportExel () {
@@ -229,12 +397,26 @@
         if (this.$route.params.id) {
           this.data.procedure = this.$route.params.id
           this.getReport({
-            procedure: this.data.procedure,
+            procedure: this.data,
           })
         }
       },
       async getReport (data) {
-        const item = await ReportsService.ExcuteProcedure(data)
+        const item = await ReportsService.ExcuteProcedure(
+          {
+            procedure: this.data.procedure,
+            from: this.data.from ? moment(this.data.from).format() : new Date(),
+            to: this.data.to ? moment(this.data.to).format() : new Date(),
+            categoryId: this.data.categoryId,
+            modelId: this.data.modelId,
+            typeId: this.data.typeId,
+            brandId: this.data.brandId,
+            branchId: this.data.branchId,
+            floorId: this.data.floorId,
+            roomId: this.data.roomId,
+            statusId: this.data.statusId,
+          }
+        )
         if (item.status === 200) {
           this.successMessage = 'Successful'
           this.successSnackbar = true
@@ -251,29 +433,71 @@
         this.loading = false
         this.disabled = false
       },
-      // async fetchOneItem (id) {
-      //   this.dataLoading = true
-      //   const floor = await CompanyRoomService.fetchOneItem(id)
-      //   this.data = floor.object
-      //   this.dataLoading = false
-      // },
-      // async getLKPBrnch () {
-      //   this.dataLoading = true
-      //   const LKPBrnch = await CompanyBranchesService.getLKPBrnch()
-      //   this.LKPBrnch = LKPBrnch.list
-      //   this.dataLoading = false
-      // },
-      // async getLKPFloor () {
-      //   this.dataLoading = true
-      //   const LKPFloor = await CompaniesFloorService.getLKPFloor()
-      //   this.LKPFloor = LKPFloor.list
-      //   this.dataLoading = false
-      // },
+      async fetchOneItem (id) {
+        this.dataLoading = true
+        const floor = await CompanyRoomService.fetchOneItem(id)
+        this.data = floor.object
+        this.dataLoading = false
+      },
+      async getLKPCategory () {
+        this.dataLoading = true
+        const LKPCategory = await AssetsCategoryService.getLKPCategory()
+        this.LKPCategory = LKPCategory.list
+        this.dataLoading = false
+      },
+      async getLKPType (item) {
+        this.dataLoading = true
+        console.log('category Id', item)
+        const LKPType = await AssetsTypeService.getTypeByCategory(item)
+        this.LKPType = LKPType.list
+        this.dataLoading = false
+      },
+      async getLKPBrand (item) {
+        this.dataLoading = true
+        const LKPBrand = await AssetsBrandService.getBrandByType(item)
+        this.LKPBrand = LKPBrand.list
+        this.dataLoading = false
+      },
+      async getLKPModel (item) {
+        this.dataLoading = true
+        const LKPModel = await AssetsModelService.getModelByBrand(item)
+        this.LKPModel = LKPModel.list
+        this.dataLoading = false
+      },
+      async getLKPBrnch () {
+        this.dataLoading = true
+        const LKPBrnch = await CompanyBranchesService.getLKPBrnch()
+        this.LKPBrnch = LKPBrnch.list
+        this.dataLoading = false
+      },
+      async getLKPFloor (item) {
+        this.dataLoading = true
+        const LKPFloor = await CompaniesFloorService.getFloorByBranch(item)
+        this.LKPFloor = LKPFloor.list
+        this.dataLoading = false
+      },
+      async getLKPRoom (item) {
+        this.dataLoading = true
+        const LKPRoom = await CompanyRoomService.getRoomByFloor(item)
+        this.LKPRoom = LKPRoom.list
+        this.dataLoading = false
+      },
+      async getLKPStatus () {
+        this.dataLoading = true
+        const LKPStatus = await AssetsStatusService.getLKPStatus()
+        this.LKPStatus = LKPStatus.list
+        this.dataLoading = false
+      },
     },
   }
 </script>
 <style>
 a{
   text-decoration: none;
+}
+.border{
+  border: 1px solid #d2d2d2;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 </style>

@@ -23,12 +23,18 @@
                       cols="12"
                       md="6"
                     >
-                      <v-text-field
+                      <v-combobox
                         v-model="data.assetName"
-                        :label="$t('assets.assetName')"
+                        :items="LKPAssets"
                         outlined
-                        dense
+                        :label="$t('assets.assetName')"
                       />
+                      <v-chip
+                        medium
+                        color="orange"
+                      >
+                        IF YOU ADD NEW DATA MUST PRESS ON ENTER BUTTON BEFORE PRESS ON ADD BUTTON
+                      </v-chip>
                     </v-col>
 
                     <v-col
@@ -668,6 +674,7 @@
     },
     data: (vm) => ({
       dataLoading: false,
+      isLoading: false,
       valid: false,
       assetMaintinanceDate: false,
       assetExpiryDate: false,
@@ -698,6 +705,7 @@
         assetCount: null,
         assetStatusId: null,
       },
+      LKPAssets: [],
       LKPType: [],
       LKPCategory: [],
       LKPBrand: [],
@@ -724,6 +732,7 @@
       this.getLKPCategory()
       this.getLKPBrnch()
       this.getLKPStatus()
+      this.getLKPAssets()
     },
     methods: {
       addAssetCategory () {
@@ -861,6 +870,13 @@
         console.log('assets.object', assets.object)
         this.dataLoading = false
       },
+      async getLKPAssets () {
+        this.dataLoading = true
+        const LKP = await AssetsService.getLKPAsset()
+        // this.LKPAssets = LKP.list
+        LKP.list.forEach(item => { this.LKPAssets.push(item.name) })
+        this.dataLoading = false
+      },
       async getLKPCategory () {
         this.dataLoading = true
         const LKPCategory = await AssetsCategoryService.getLKPCategory()
@@ -914,7 +930,6 @@
         const userDataPermission = localStorage.getItem('userDataPermission')
         const permissions = userDataPermission.split(',')
         this.Roles = permissions
-        console.log('this.Roles', this.Roles)
       },
     },
   }

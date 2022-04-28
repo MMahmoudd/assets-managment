@@ -270,7 +270,8 @@
         this.dataLoading = true
         const { page, itemsPerPage } = this.options
         const pageNumber = page - 1
-        const status = await AssetsService.getAllItems(itemsPerPage, page, pageNumber, this.filter)
+        const paginate = this.IsPagination = true
+        const status = await AssetsService.getAllItems(itemsPerPage, page, pageNumber, this.filter, paginate)
         console.log('status', status)
         this.status = status.list
         this.total = status.resultPaging.total
@@ -287,7 +288,6 @@
         const userDataPermission = localStorage.getItem('userDataPermission')
         const permissions = userDataPermission.split(',')
         this.Roles = permissions
-        console.log('this.Roles', this.Roles)
       },
     },
   }

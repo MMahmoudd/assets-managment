@@ -6,7 +6,7 @@
   >
     <v-card class="py-5">
       <v-card-title>
-        {{ this.$route.params.id ? $t('assetCategory.editCategory') : $t('assetCategory.addCategory') }}
+        {{ this.$route.params.id ? $t('employee.edit') : $t('employee.add') }}
       </v-card-title>
       <template>
         <v-form
@@ -17,19 +17,48 @@
             <v-row class="mx-md-16 px-md-16">
               <v-col
                 cols="12"
+                md="6"
               >
-                <v-combobox
-                  v-model="data.assetCategoryName"
-                  :items="LKP"
+                <v-text-field
+                  v-model="data.employeename"
+                  :label="$t('employee.username')"
                   outlined
-                  :label="$t('assetCategory.assetCategoryName')"
+                  required
                 />
-                <v-chip
-                  medium
-                  color="orange"
-                >
-                  IF YOU ADD NEW DATA MUST PRESS ON ENTER BUTTON BEFORE PRESS ON ADD BUTTON
-                </v-chip>
+              </v-col>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <v-text-field
+                  v-model="data.phone"
+                  :label="$t('employee.mobile')"
+                  outlined
+                  required
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <v-text-field
+                  v-model="data.email"
+                  :label="$t('employee.email')"
+                  type="email"
+                  outlined
+                  required
+                />
+              </v-col>
+              <v-col
+                cols="12"
+                md="6"
+              >
+                <v-text-field
+                  v-model="data.location"
+                  :label="$t('employee.location')"
+                  outlined
+                  required
+                />
               </v-col>
             </v-row>
             <v-btn
@@ -51,7 +80,7 @@
       shaped
       absolute
       bottom
-      center
+      right
       :timeout="timeout"
     >
       {{ successMessage }}
@@ -62,7 +91,7 @@
       shaped
       absolute
       bottom
-      center
+      right
       :timeout="timeout"
     >
       {{ errorMessage }}
@@ -71,18 +100,19 @@
 </template>
 <script>
   import { ServiceFactory } from '../../../services/ServiceFactory'
-  const AssetsCategoryService = ServiceFactory.get('AssetsCategory')
+  const Service = ServiceFactory.get('Employee')
   export default {
-    name: 'Companies',
+    name: 'EmployeeForm',
     data: (vm) => ({
       dataLoading: false,
       valid: false,
-      search: null,
       data: {
-        assetCategoryId: null,
-        assetCategoryName: '',
+        id: 0,
+        employeename: '',
+        email: '',
+        phone: '',
+        location: '',
       },
-      LKP: [],
       successSnackbar: false,
       errorSnackbar: false,
       timeout: 3000,
@@ -95,55 +125,54 @@
       if (this.$route.params.id) {
         this.fetchOneItem(this.$route.params.id)
       }
-      this.getLKPAssets()
     },
     methods: {
       async  submitForm () {
         this.loading = true
         this.disabled = true
         if (this.$route.params.id) {
-          console.log('this.data', this.data)
           this.updateContent({
-            assetCategoryId: this.data.assetCategoryId,
-            assetCategoryName: this.data.assetCategoryName,
+            id: this.data.id,
+            phone: this.data.phone,
+            email: this.data.email,
+            employeename: this.data.employeename,
+            location: this.data.location,
           })
         } else {
-          console.log('this.data', this.data)
           this.newItem(
             {
-              assetCategoryName: this.data.assetCategoryName,
+              phone: this.data.phone,
+              email: this.data.email,
+              employeename: this.data.employeename,
+              location: this.data.location,
             },
           )
         }
       },
       async newItem (data) {
-        console.log('new data', data)
-        const item = await AssetsCategoryService.updateAddAssetsCategory(data)
+        const item = await Service.AddOrUpdate(data)
+        console.log('new Item item', item)
         if (item.success === true) {
           this.successMessage = 'Successful'
           this.successSnackbar = true
           setTimeout(() => {
-            if (this.$route.name === 'Assets Category Form') {
-              this.$router.push('/Assets-category')
-            } else {
-              this.data.assetCategoryName = ''
-            }
-          }, 1000)
+            this.$router.push('/employee')
+          }, 1500)
         } else {
-          this.errorMessage('something Error')
+          this.errorMessage = item.message
           this.errorSnackbar = true
         }
         this.disabled = false
         this.loading = false
       },
       async updateContent (data) {
+        const item = await Service.AddOrUpdate(data)
         console.log('update Content item', data)
-        const item = await AssetsCategoryService.updateAddAssetsCategory(data)
         if (item.success === true) {
           this.successMessage = 'Successful'
           this.successSnackbar = true
           setTimeout(() => {
-            this.$router.push('/Assets-category')
+            this.$router.push('/employee')
           }, 1500)
         } else {
           this.errorMessage('something Error')
@@ -154,14 +183,8 @@
       },
       async fetchOneItem (id) {
         this.dataLoading = true
-        const company = await AssetsCategoryService.fetchOneItem(id)
-        this.data = company.object
-        this.dataLoading = false
-      },
-      async getLKPAssets () {
-        this.dataLoading = true
-        const LKPItems = await AssetsCategoryService.getLKPCategory()
-        LKPItems.list.forEach(item => { this.LKP.push(item.name) })
+        const user = await Service.fetchOneItem(id)
+        this.data = user.object
         this.dataLoading = false
       },
     },
