@@ -8,21 +8,33 @@
       <v-card-title>
         {{ $t('reports.reportDetails') }}
         <template>
-          <v-spacer />
           <v-form
             v-model="valid"
             @submit.prevent="submitForm()"
           >
-            <v-container fluid>
-              <v-row class="mx-md-16 px-md-16">
-                <h3>{{ $t('assets.assetsInfo') }}</h3>
-                <v-col cols="12">
-                  <div class="border py-5">
-                    <v-row class=" px-2">
+            <v-container
+              fluid
+            >
+              <v-row
+                class="mx-md-16 px-md-16"
+              >
+                <h3 v-if="filterdList.indexOf('CategoryId') >= 0 || filterdList.indexOf('TypeId') >= 0 || filterdList.indexOf('BrandId') >= 0 || filterdList.indexOf('ModelId') >= 0 || filterdList.indexOf('StatusId') >= 0">
+                  {{ $t('assets.assetsInfo') }}
+                </h3>
+                <v-col
+                  v-if="filterdList.indexOf('CategoryId') >= 0 || filterdList.indexOf('TypeId') >= 0 || filterdList.indexOf('BrandId') >= 0 || filterdList.indexOf('ModelId') >= 0 || filterdList.indexOf('StatusId') >= 0"
+                  cols="12"
+                >
+                  <div
+                    class="border py-5"
+                  >
+                    <v-row
+                      class=" px-2"
+                    >
                       <v-col
+                        v-if="filterdList.indexOf('CategoryId') >= 0 || filterdList.indexOf('TypeId') >= 0 || filterdList.indexOf('BrandId') >= 0 || filterdList.indexOf('ModelId') >= 0"
                         cols="12"
                         md="6"
-                        class="d-flex"
                       >
                         <v-select
                           v-model="data.categoryId"
@@ -36,9 +48,9 @@
                         />
                       </v-col>
                       <v-col
+                        v-if="filterdList.indexOf('TypeId') >= 0 || filterdList.indexOf('BrandId') >= 0 || filterdList.indexOf('ModelId') >= 0"
                         cols="12"
                         md="6"
-                        class="d-flex"
                       >
                         <v-select
                           v-model="data.typeId"
@@ -52,9 +64,9 @@
                         />
                       </v-col>
                       <v-col
+                        v-if="filterdList.indexOf('BrandId') >= 0 || filterdList.indexOf('ModelId') >= 0"
                         cols="12"
                         md="6"
-                        class="d-flex"
                       >
                         <v-select
                           v-model="data.brandId"
@@ -68,9 +80,9 @@
                         />
                       </v-col>
                       <v-col
+                        v-if="filterdList.indexOf('ModelId') >= 0"
                         cols="12"
                         md="6"
-                        class="d-flex"
                       >
                         <v-select
                           v-model="data.modelId"
@@ -83,9 +95,9 @@
                         />
                       </v-col>
                       <v-col
+                        v-if="filterdList.indexOf('StatusId') >= 0"
                         cols="12"
                         md="6"
-                        class="d-flex"
                       >
                         <v-select
                           v-model="data.statusId"
@@ -100,11 +112,17 @@
                     </v-row>
                   </div>
                 </v-col>
-                <h3>{{ $t('assets.companiesInfo') }}</h3>
-                <v-col cols="12">
+                <h3 v-if="filterdList.indexOf('BranchId') >= 0 || filterdList.indexOf('FloorId') >= 0 || filterdList.indexOf('RoomId') >= 0">
+                  {{ $t('assets.companiesInfo') }}
+                </h3>
+                <v-col
+                  v-if="filterdList.indexOf('BranchId') >= 0 || filterdList.indexOf('FloorId') >= 0 || filterdList.indexOf('RoomId') >= 0"
+                  cols="12"
+                >
                   <div class="border py-5">
                     <v-row class=" px-2">
                       <v-col
+                        v-if="filterdList.indexOf('BranchId') >= 0 || filterdList.indexOf('FloorId') >= 0 || filterdList.indexOf('RoomId') >= 0"
                         cols="12"
                         md="6"
                       >
@@ -120,6 +138,7 @@
                         />
                       </v-col>
                       <v-col
+                        v-if="filterdList.indexOf('FloorId') >= 0 || filterdList.indexOf('RoomId') >= 0"
                         cols="12"
                         md="6"
                       >
@@ -135,6 +154,7 @@
                         />
                       </v-col>
                       <v-col
+                        v-if="filterdList.indexOf('RoomId') >= 0"
                         cols="12"
                         md="6"
                       >
@@ -151,11 +171,17 @@
                     </v-row>
                   </div>
                 </v-col>
-                <h3>{{ $t('assets.datesInfo') }}</h3>
-                <v-col cols="12">
+                <h3 v-if="filterdList.indexOf('From') >= 0 || filterdList.indexOf('To') >= 0">
+                  {{ $t('assets.datesInfo') }}
+                </h3>
+                <v-col
+                  v-if="filterdList.indexOf('From') >= 0 || filterdList.indexOf('To') >= 0"
+                  cols="12"
+                >
                   <div class="border py-5">
                     <v-row class=" px-2">
                       <v-col
+                        v-if="filterdList.indexOf('From') >= 0 || filterdList.indexOf('To') >= 0"
                         cols="12"
                         md="6"
                       >
@@ -187,6 +213,7 @@
                         </v-menu>
                       </v-col>
                       <v-col
+                        v-if="filterdList.indexOf('From') >= 0 || filterdList.indexOf('To') >= 0"
                         cols="12"
                         md="6"
                       >
@@ -357,6 +384,17 @@
       loading: false,
       disabled: false,
     }),
+    computed: {
+      filterdList () {
+        if (localStorage.getItem('filterdList')) {
+          console.log('filterdList.split', localStorage.getItem('filterdList').indexOf('Mahmoud'))
+          return localStorage.getItem('filterdList')
+          // return filterdList.split(',')
+        } else {
+          return false
+        }
+      },
+    },
     created () {
       // if (this.$route.params.id) {
       //   this.fetchOneItem(this.$route.params.id)

@@ -1,3 +1,4 @@
+/* eslint-disable eol-last */
 /* eslint-disable space-before-function-paren */
 import Vue from 'vue'
 import Router from 'vue-router'
@@ -196,6 +197,15 @@ const router = new Router({
                     component: () =>
                         import ('@/views/dashboard/assets-c/Form.vue'),
                     meta: { role: 'Asset.GetById' || 'Asset.AddOrUpdate' || 'Asset.Add' },
+                    beforeEnter: routerGuard,
+                },
+                // Import Assets
+                {
+                    name: 'Import Assets',
+                    path: '/importAssets',
+                    component: () =>
+                        import ('@/views/dashboard/assets-c/Import.vue'),
+                    meta: { role: 'Asset.Add' },
                     beforeEnter: routerGuard,
                 },
                 // Assets Type

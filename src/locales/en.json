@@ -92,7 +92,8 @@
         "getAssets": "Get Assets",
         "print": "Print",
         "export": "Export",
-        "changeStatus": "Change Status"
+        "changeStatus": "Change Status",
+        "import": "Import"
     },
     "statistics": {
         "assetsStatistics": "Assets Statistics",
@@ -197,11 +198,13 @@
         "chooseNewFloor": "choose New Floor",
         "currentRoom": "Current Room",
         "chooseNewRoom": "choose New Room",
+        "choosePO": "Choose Purchase Order",
         "filterAsset": "filter Assets",
         "printerIPAddress": "Enter printer IP Address",
         "ERPCode": "ERP Code",
         "editERPCode": "Edit ERP Code",
-        "assetCode": "asset Code"
+        "assetCode": "asset Code",
+        "import": "Import From Excel"
     },
     "assetsType": {
         "assetTypeDesc": "Type Description",

@@ -22,6 +22,14 @@ export default {
                 }
             })
     },
+    getUserBranch() {
+        return Service.get(`${resource}/GetUserBranch`)
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.data
+                }
+            })
+    },
     updateUserData(data) {
         return Service.post(`${resource}/UpdateUser`, data)
             .then((response) => {

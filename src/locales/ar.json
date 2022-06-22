@@ -197,11 +197,13 @@
         "chooseNewFloor": "اختر طابق جديد",
         "currentRoom": "الغرفة الحالية",
         "chooseNewRoom": "اختر غرفة جديدة",
+        "choosePO": "اختر أمر الشراء",
         "filterAsset": "تصفية الأصول",
         "printerIPAddress": "أدخل عنوان IP الخاص بالطابعة",
         "ERPCode": "ERP كود",
         "editERPCode": "تعديل كود ERP",
-        "assetCode": "كود الأصول"
+        "assetCode": "كود الأصول",
+        "import": "استيراد من اكسل"
     },
     "assetsType": {
         "assetTypeDesc": "وصف نوع الاصل",

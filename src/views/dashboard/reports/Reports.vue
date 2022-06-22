@@ -45,6 +45,7 @@
                   color="blue"
                   v-bind="attrs"
                   v-on="on"
+                  @click="saveFilters(item)"
                 >
                   <v-icon>
                     fa-eye
@@ -100,10 +101,12 @@
       },
     },
     methods: {
+      saveFilters (item) {
+        localStorage.setItem('filterdList', item.filterdList)
+      },
       async fetchAllItems () {
         this.dataLoading = true
         const reports = await ReportsService.GetProcedures()
-        console.log('reports', reports)
         this.reports = reports.list
         this.total = reports.count
         this.dataLoading = false

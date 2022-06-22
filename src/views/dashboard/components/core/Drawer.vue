@@ -387,6 +387,12 @@
           role: ['Page.Asset'],
         },
         {
+          title: vm.$t('assets.import'),
+          icon: 'mdi-file-import',
+          to: '/importAssets',
+          role: ['Page.Asset'],
+        },
+        {
           title: vm.$t('sidbar.assetsCategory'),
           icon: 'fa-object-group',
           to: '/Assets-category',

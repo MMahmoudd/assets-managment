@@ -48,6 +48,20 @@
                         dense
                       />
                     </v-col>
+                    <v-col
+                      cols="12"
+                      md="6"
+                    >
+                      <v-select
+                        v-model="data.poid"
+                        :items="LKPPO"
+                        item-text="povendor"
+                        item-value="poid"
+                        :label="$t('assets.choosePO')"
+                        outlined
+                        dense
+                      />
+                    </v-col>
                   </v-row>
                 </div>
               </v-col>
@@ -660,10 +674,11 @@
   const AssetsCategoryService = ServiceFactory.get('AssetsCategory')
   const AssetsBrandService = ServiceFactory.get('AssetsBrand')
   const AssetsModelService = ServiceFactory.get('AssetsModel')
-  const CompanyBranchesService = ServiceFactory.get('companyBranches')
+  const POService = ServiceFactory.get('PO')
   const CompaniesFloorService = ServiceFactory.get('CompaniesFloor')
   const CompanyRoomService = ServiceFactory.get('CompanyRoom')
   const AssetsStatusService = ServiceFactory.get('AssetsStatus')
+  const AuthenticationService = ServiceFactory.get('Authentication')
   export default {
     name: 'Companies',
     components: {
@@ -714,6 +729,7 @@
       LKPFloor: [],
       LKPRoom: [],
       LKPStatus: [],
+      LKPPO: [],
       formSerial: [],
       Roles: [],
       successSnackbar: false,
@@ -733,6 +749,7 @@
       this.getLKPBrnch()
       this.getLKPStatus()
       this.getLKPAssets()
+      this.getLKPPO()
     },
     methods: {
       addAssetCategory () {
@@ -904,8 +921,9 @@
       },
       async getLKPBrnch () {
         this.dataLoading = true
-        const LKPBrnch = await CompanyBranchesService.getLKPBrnch()
-        this.LKPBrnch = LKPBrnch.list
+        const LKPBrnch = await AuthenticationService.getUserBranch()
+        console.log('LKPBranch', LKPBrnch)
+        this.LKPBrnch = LKPBrnch.object
         this.dataLoading = false
       },
       async getLKPFloor (item) {
@@ -924,6 +942,12 @@
         this.dataLoading = true
         const LKPStatus = await AssetsStatusService.getLKPStatus()
         this.LKPStatus = LKPStatus.list
+        this.dataLoading = false
+      },
+      async getLKPPO () {
+        this.dataLoading = true
+        const LKPPO = await POService.getAllItems()
+        this.LKPPO = LKPPO.list
         this.dataLoading = false
       },
       checkLinksRole () {
