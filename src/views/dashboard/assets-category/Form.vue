@@ -19,17 +19,11 @@
                 cols="12"
               >
                 <v-combobox
-                  v-model="data.assetCategoryName"
                   :items="LKP"
                   outlined
                   :label="$t('assetCategory.assetCategoryName')"
+                  @keypress="addName"
                 />
-                <v-chip
-                  medium
-                  color="orange"
-                >
-                  IF YOU ADD NEW DATA MUST PRESS ON ENTER BUTTON BEFORE PRESS ON ADD BUTTON
-                </v-chip>
               </v-col>
             </v-row>
             <v-btn
@@ -91,6 +85,7 @@
       loading: false,
       disabled: false,
     }),
+
     created () {
       if (this.$route.params.id) {
         this.fetchOneItem(this.$route.params.id)
@@ -98,6 +93,13 @@
       this.getLKPAssets()
     },
     methods: {
+      addName (event) {
+        setTimeout(() => {
+          // this.LKP.push(event.target.value)
+          this.data.assetCategoryName = event.target.value
+          console.log('LKP', event.target.value)
+        }, 3000)
+      },
       async  submitForm () {
         this.loading = true
         this.disabled = true

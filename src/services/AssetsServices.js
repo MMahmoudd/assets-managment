@@ -102,8 +102,8 @@ export default {
                 }
             })
     },
-    GetAllAssetsForPrint(itemsPerPage, page, pageNumber, data) {
-        return Service.post(`${resource}/GetAssetsForPrint?page=${page}&limit=${itemsPerPage}`, data)
+    GetAllAssetsForPrint(itemsPerPage, page, pageNumber, data, IsPrint) {
+        return Service.post(`${resource}/GetAssetsForPrint?page=${page}&limit=${itemsPerPage}&IsPrint=${IsPrint}`, data)
             .then((response) => {
                 console.log(response)
                 if (response.status === 200) {
@@ -131,81 +131,28 @@ export default {
                 }
             })
     },
+    printAssetsStatus(data) {
+      return Service.post(`${resource}/PrintAsset`, data)
+          .then((response) => {
+              if (response.status === 200) {
+                  return response.data
+              }
+          })
+  },
     printAssets(printerIPAddress, item) {
-        // return Service.post(`https://${printerIPAddress}/pstprnt`,
-        //         `^XA
-        //   ^RS,,,3,N,,,2
-        //   ^RR3
-        //   ^XZ
-        //   ^XA
-        //   ^SZ2^JMA
-        //   ^MCY^PMN
-        //   ^PW490
-        //   ~JSN
-        //   ^JZY
-        //   ^LH0,0^LRN
-        //   ^XZ
-        //   ^XA
-        //   ^FO130,80
-        //   ^BY3^BCN,72,N,N^FD>;${item.assetSerialNumber}^FS
-        //   ^FT166,185
-        //   ^CI0
-        //   ^A0N,34,46^FD${item.assetSerialNumber}^FS
-        //   ^FT133,58
-        //   ^A0N,34,46^FD${item.assetDescription}^FS
-        //   ^RFW,H,1,2,1^FD1400^FS
-        //   ^RFW,H,2,3,1^FD${item.assetSerialNumber}^FS
-        //   ^PQ1,0,1,Y
-        //   ^XZ`,
-        // )
-        //   .then((response) => {
-        //       console.log(response)
-        //     // if (response.status === 200) {
-        //     //     return response.data
-        //     // }
-        // })
-        // console.log('Starting connection to WebSocket Server', item)
-        // console.log(new WebSocket('ws://4.0.80.80))
-        const socket = new WebSocket('ws://0.0.0.0:8080')
+        console.log('socketData', item)
+        const socket = new WebSocket('ws://127.0.0.1:80')
         console.log(socket)
-        socket.send(
-                `^XA
-              ^RS,,,3,N,,,2
-              ^RR3
-              ^XZ
-              ^XA
-              ^SZ2^JMA
-              ^MCY^PMN
-              ^PW490
-              ~JSN
-              ^JZY
-              ^LH0,0^LRN
-              ^XZ
-              ^XA
-              ^FO130,80
-              ^BY3^BCN,72,N,N^FD>;${item.assetSerialNumber}^FS
-              ^FT166,185
-              ^CI0
-              ^A0N,34,46^FD${item.assetSerialNumber}^FS
-              ^FT133,58
-              ^A0N,34,46^FD${item.assetDescription}^FS
-              ^RFW,H,1,2,1^FD1400^FS
-              ^RFW,H,2,3,1^FD${item.assetSerialNumber}^FS
-              ^PQ1,0,1,Y
-              ^XZ`)
-            .then((socket) => {
-                console.log('socket', socket)
-                    // if (response.status === 200) {
-                    //     return response.data
-                    // }
-            })
-
         socket.onmessage = function(event) {
             console.log(event)
         }
 
         socket.onopen = function(event) {
             console.log(event)
+
+            const socketData = printerIPAddress + ',' + item.join(',')
+            console.log('socketData', item)
+            socket.send(socketData)
             console.log('Successfully connected to the echo websocket server...')
         }
     },

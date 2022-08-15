@@ -58,6 +58,7 @@ const Login = {
             state.userDataPermission = response.data.userPolicy
             dispatch('checkUserData')
             window.location.href = process.env.BASE_URL
+            console.log('response success', response)
           } else {
             console.log('response=>', response)
             state.loginErrorMessage = response.data.message

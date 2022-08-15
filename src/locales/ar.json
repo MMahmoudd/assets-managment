@@ -203,7 +203,8 @@
         "ERPCode": "ERP كود",
         "editERPCode": "تعديل كود ERP",
         "assetCode": "كود الأصول",
-        "import": "استيراد من اكسل"
+        "import": "استيراد من اكسل",
+        "printedStatus": "حالة الطباعة"
     },
     "assetsType": {
         "assetTypeDesc": "وصف نوع الاصل",

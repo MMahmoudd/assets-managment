@@ -19,18 +19,12 @@
                 cols="12"
               >
                 <v-combobox
-                  v-model="data.assetStatusDesc"
                   :items="LKP"
                   outlined
                   :label="$t('assetsStatus.assetStatusDesc')"
                   required
+                  @keypress="addName"
                 />
-                <v-chip
-                  medium
-                  color="orange"
-                >
-                  IF YOU ADD NEW DATA MUST PRESS ON ENTER BUTTON BEFORE PRESS ON ADD BUTTON
-                </v-chip>
               </v-col>
             </v-row>
             <v-btn
@@ -98,6 +92,13 @@
       this.getLKPAssets()
     },
     methods: {
+      addName (event) {
+        setTimeout(() => {
+          // this.LKP.push(event.target.value)
+          this.data.assetStatusDesc = event.target.value
+          console.log('LKP', event.target.value)
+        }, 3000)
+      },
       async  submitForm () {
         this.loading = true
         this.disabled = true

@@ -47,7 +47,7 @@
           </v-col>
           <v-col
             cols="6"
-            md="3"
+            md="2"
             class="d-flex"
           >
             <v-select
@@ -63,7 +63,7 @@
           </v-col>
           <v-col
             cols="6"
-            md="3"
+            md="2"
             class="d-flex"
           >
             <v-select
@@ -74,6 +74,22 @@
               :label="$t('assets.chooseModel')"
               outlined
               dense
+            />
+          </v-col>
+          <v-col
+            cols="6"
+            md="2"
+            class="d-flex"
+          >
+            <v-select
+              v-model="IsPrint"
+              :items="printStatus"
+              item-text="value"
+              item-value="key"
+              :label="$t('assets.printedStatus')"
+              outlined
+              dense
+              @input="fetchAllItems"
             />
           </v-col>
         </v-row>
@@ -155,6 +171,8 @@
         />
       </v-card-title>
       <v-data-table
+        v-model="selectedItems"
+        show-select
         :loading="dataLoading"
         :headers="headers"
         :search="search"
@@ -166,8 +184,40 @@
         :options.sync="options"
         :server-items-length="total"
         :page-count="numberOfPages"
+        item-key="id"
         @fetchAllItems="fetchAllItems"
       >
+        <template
+          v-if="selectedItems.length >= 1"
+          v-slot:top
+        >
+          <v-toolbar
+            flat
+          >
+            <v-spacer />
+            <v-tooltip bottom>
+              <template
+                v-slot:activator="{ on, attrs }"
+              >
+                <v-btn
+                  small
+                  fab
+                  outlined
+                  class="mx-2"
+                  color="green"
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="printAssets()"
+                >
+                  <v-icon>
+                    fa-print
+                  </v-icon>
+                </v-btn>
+              </template>
+              {{ $t('actions.print') }}
+            </v-tooltip>
+          </v-toolbar>
+        </template>
         <template v-slot:[`item.actions`]="{ item }">
           <v-tooltip bottom>
             <template
@@ -181,7 +231,7 @@
                 color="green"
                 v-bind="attrs"
                 v-on="on"
-                @click="printAssets(item)"
+                @click="printAsset(item)"
               >
                 <v-icon>
                   fa-print
@@ -310,11 +360,19 @@
     name: 'PendingAssets',
     data: (vm) => ({
       search: '',
-      printerIPAddress: '192.168.1.143',
+      printerIPAddress: '',
       dataLoading: false,
       page: 0,
       total: 0,
       numberOfPages: 0,
+      singleSelect: false,
+      IsPrint: '',
+      printStatus: [
+        { key: '', value: 'All' },
+        { key: true, value: 'Printed' },
+        { key: false, value: 'Not Printed' },
+      ],
+      selectedItems: [],
       options: {},
       assets: [],
       Roles: [],
@@ -360,6 +418,8 @@
         { text: vm.$t('assets.assetModelName'), sortable: false, value: 'assetModelName' },
         { text: vm.$t('assets.assetTypeName'), sortable: false, value: 'assetTypeName' },
         { text: vm.$t('assets.assetSerialNumber'), sortable: false, value: 'assetSerialNumber' },
+        { text: vm.$t('assets.printedStatus'), sortable: false, value: 'printStatus' },
+        { text: vm.$t('assets.printDate'), sortable: false, value: 'printDate' },
         { text: vm.$t('actions.actions'), value: 'actions', sortable: false },
       ],
     }),
@@ -373,22 +433,6 @@
     created () {
       this.getLKPCategory()
       this.getLKPBrnch()
-      console.log('Starting connection to WebSocket Server')
-      // this.connection = new WebSocket('ws://0.0.0.0:8080')
-      // this.connection = new WebSocket('wss://192.168.1.143')
-      this.connection = new WebSocket('wss://echo.websocket.org')
-      console.log('socket', this.connection)
-      this.connection.send(
-        'test'
-      )
-      this.connection.onmessage = function (event) {
-        console.log('event', event)
-      }
-
-      this.connection.onopen = function (event) {
-        console.log(event)
-        console.log('Successfully connected to the echo websocket server...')
-      }
     },
     methods: {
       moreDetailsD (item) {
@@ -403,41 +447,59 @@
         this.dataLoading = true
         const { page, itemsPerPage } = this.options
         const pageNumber = page - 1
-        const assets = await AssetsService.GetAllAssetsForPrint(itemsPerPage, page, pageNumber, this.data)
-        console.log('Assets', assets)
+        const assets = await AssetsService.GetAllAssetsForPrint(itemsPerPage, page, pageNumber, this.data, this.IsPrint)
+        assets.list.forEach(i => {
+          if (i.printStatus === true) {
+            i.printStatus = 'Printed'
+          } else {
+            i.printStatus = 'Not Printed'
+          }
+        })
         this.assets = assets.list
         this.total = assets.count
         this.dataLoading = false
       },
-      async printAssets (item) {
+      async printAsset (item) {
         this.dataLoading = true
         if (this.printerIPAddress.length > 0) {
           localStorage.setItem('printerIPAddress', this.printerIPAddress)
-          const print = await AssetsService.printAssets(this.printerIPAddress, item)
-          console.log(print)
+          const print = await AssetsService.printAssets(this.printerIPAddress, [item.assetSerialNumber])
+          const printStatus = await AssetsService.printAssetsStatus([item.id])
+          this.fetchAllItems()
+          console.log(print, printStatus)
         } else if (localStorage.getItem('printerIPAddress')) {
           const printerIPAddress = localStorage.getItem('printerIPAddress', this.printerIPAddress)
-          console.log('printerIPAddress', printerIPAddress)
-          const print = await AssetsService.printAssets(printerIPAddress, item)
-          console.log(print)
+          const print = await AssetsService.printAssets(printerIPAddress, [item.assetSerialNumber])
+          const printStatus = await AssetsService.printAssetsStatus([item.id])
+          this.fetchAllItems()
+          console.log(print, printStatus)
         } else {
           this.warningMessage = 'You must enter a valid IP address'
           this.warningSnackbar = true
         }
         this.dataLoading = false
-        // console.log('Hello')
-        // console.log(this.connection.send(
-        //   {
-        //     serial: item.assetSerialNumber,
-        //     description: item.assetDescription,
-        //   },
-        // ))
-        // this.connection.send(
-        //   {
-        //     serial: item.assetSerialNumber,
-        //     description: item.assetDescription,
-        //   },
-        // )
+      },
+      async printAssets () {
+        this.dataLoading = true
+        const items = this.selectedItems.map(i => i.assetSerialNumber)
+        const itemsIds = this.selectedItems.map(i => i.id)
+        if (this.printerIPAddress.length > 0) {
+          localStorage.setItem('printerIPAddress', this.printerIPAddress)
+          const print = await AssetsService.printAssets(this.printerIPAddress, items)
+          const printStatus = await AssetsService.printAssetsStatus(itemsIds)
+          this.fetchAllItems()
+          console.log(print, printStatus)
+        } else if (localStorage.getItem('printerIPAddress')) {
+          const printerIPAddress = localStorage.getItem('printerIPAddress', this.printerIPAddress)
+          const print = await AssetsService.printAssets(printerIPAddress, items)
+          const printStatus = await AssetsService.printAssetsStatus(itemsIds)
+          this.fetchAllItems()
+          console.log(print, printStatus)
+        } else {
+          this.warningMessage = 'You must enter a valid IP address'
+          this.warningSnackbar = true
+        }
+        this.dataLoading = false
       },
       async getLKPCategory () {
         this.dataLoading = true

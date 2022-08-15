@@ -204,7 +204,8 @@
         "ERPCode": "ERP Code",
         "editERPCode": "Edit ERP Code",
         "assetCode": "asset Code",
-        "import": "Import From Excel"
+        "import": "Import From Excel",
+        "printedStatus": "Print Status"
     },
     "assetsType": {
         "assetTypeDesc": "Type Description",

@@ -24,17 +24,11 @@
                       md="6"
                     >
                       <v-combobox
-                        v-model="data.assetName"
                         :items="LKPAssets"
                         outlined
                         :label="$t('assets.assetName')"
+                        @keypress="addName"
                       />
-                      <v-chip
-                        medium
-                        color="orange"
-                      >
-                        IF YOU ADD NEW DATA MUST PRESS ON ENTER BUTTON BEFORE PRESS ON ADD BUTTON
-                      </v-chip>
                     </v-col>
 
                     <v-col
@@ -436,7 +430,7 @@
                   </v-row>
                 </div>
               </v-col>
-              <v-col
+              <!-- <v-col
                 v-if="!this.$route.params.id"
                 cols="12"
                 md="6"
@@ -503,7 +497,7 @@
                     </v-col>
                   </v-row>
                 </template>
-              </v-col>
+              </v-col> -->
             </v-row>
             <v-btn
               type="submit"
@@ -752,8 +746,15 @@
       this.getLKPPO()
     },
     methods: {
+      addName (event) {
+        setTimeout(() => {
+          // this.LKP.push(event.target.value)
+          this.data.assetName = event.target.value
+          console.log('LKP', event.target.value)
+        }, 3000)
+      },
       addAssetCategory () {
-        this.addAssetCategoryv = true
+        this.addAssetCategory = true
       },
       closeAddCategory () {
         this.getLKPCategory()
@@ -859,18 +860,18 @@
         this.disabled = false
         this.loading = false
       },
-      addNewSerial () {
-        this.data.arrayOfAssetSerialNumber = this.formSerial
-        if (this.data.arrayOfAssetSerialNumber.length < this.data.assetCount) {
-          this.data.arrayOfAssetSerialNumber.push({
-            assetSerialNumber: null,
-          })
-        }
-      },
-      deleteSerial (id) {
-        this.data.arrayOfAssetSerialNumber.splice(id, 1)
-        console.log(this.data.arrayOfAssetSerialNumber)
-      },
+      // addNewSerial () {
+      //   this.data.arrayOfAssetSerialNumber = this.formSerial
+      //   if (this.data.arrayOfAssetSerialNumber.length < this.data.assetCount) {
+      //     this.data.arrayOfAssetSerialNumber.push({
+      //       assetSerialNumber: null,
+      //     })
+      //   }
+      // },
+      // deleteSerial (id) {
+      //   this.data.arrayOfAssetSerialNumber.splice(id, 1)
+      //   console.log(this.data.arrayOfAssetSerialNumber)
+      // },
       async fetchOneItem (id) {
         this.dataLoading = true
         const assets = await AssetsService.fetchOneItem(id)
